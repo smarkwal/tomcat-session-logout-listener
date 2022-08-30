@@ -100,6 +100,7 @@ class SessionLogoutListenerTest {
 		Mockito.verify(principal).getName();
 		Mockito.verify(session).getId();
 		Mockito.verify(response).setStatus(200);
+		Mockito.verify(response).setContentType("text/plain");
 		Mockito.verify(response).getWriter();
 		Mockito.verify(writer).println("OK");
 		Mockito.verifyNoMoreInteractions(request, response, writer, context, manager, next);
@@ -131,6 +132,7 @@ class SessionLogoutListenerTest {
 
 		// verify
 		Mockito.verify(response).setStatus(200);
+		Mockito.verify(response).setContentType("text/plain");
 		Mockito.verify(response).getWriter();
 		Mockito.verify(writer).println("OK");
 		Mockito.verifyNoMoreInteractions(request, response, writer, context, manager, next);
