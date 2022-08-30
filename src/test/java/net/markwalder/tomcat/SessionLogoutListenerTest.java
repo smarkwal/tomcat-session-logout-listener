@@ -25,38 +25,115 @@
 package net.markwalder.tomcat;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.security.Principal;
 import javax.servlet.ServletException;
+import org.apache.catalina.Context;
+import org.apache.catalina.Manager;
+import org.apache.catalina.Session;
 import org.apache.catalina.Valve;
 import org.apache.catalina.connector.Request;
 import org.apache.catalina.connector.Response;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+@ExtendWith(MockitoExtension.class)
 class SessionLogoutListenerTest {
+
+	@Mock
+	Request request;
+
+	@Mock
+	Response response;
+
+	@Mock
+	PrintWriter writer;
+
+	@Mock
+	Context context;
+
+	@Mock
+	Manager manager;
+
+	@Mock
+	Session session;
+
+	@Mock
+	Principal principal;
+
+	SessionLogoutListener listener = new SessionLogoutListener();
+
+	@Mock
+	Valve next;
+
+	@BeforeEach
+	void setUp() throws IOException {
+		Mockito.lenient().doReturn(writer).when(response).getWriter();
+		Mockito.lenient().doReturn(context).when(request).getContext();
+		Mockito.lenient().doReturn(manager).when(context).getManager();
+
+		listener.setNext(next);
+	}
 
 	@Test
 	void invoke() throws ServletException, IOException {
 
-		// mock
-		Request request = Mockito.mock(Request.class);
-		Response response = Mockito.mock(Response.class);
-		Valve next = Mockito.mock(Valve.class);
-
 		// prepare
-		SessionLogoutListener listener = new SessionLogoutListener();
-		listener.setNext(next);
+		Mockito.doReturn("/session-logout-listener").when(request).getRequestURI();
+		Mockito.doReturn(new String[] { "alice", "bob" }).when(request).getParameterValues("username");
+		Mockito.doReturn(new Session[] { session }).when(manager).findSessions();
+		Mockito.doReturn(principal).when(session).getPrincipal();
+		Mockito.doReturn("alice").when(principal).getName();
 
 		// test
 		listener.invoke(request, response);
 
-		// assert
+		// verify
+		Mockito.verify(request).getContext();
+		Mockito.verify(context).getManager();
+		Mockito.verify(manager).findSessions();
+		Mockito.verify(session).getPrincipal();
+		Mockito.verify(principal).getName();
+		Mockito.verify(session).getId();
+		Mockito.verify(response).setStatus(200);
+		Mockito.verify(response).getWriter();
+		Mockito.verify(writer).println("OK");
+		Mockito.verifyNoMoreInteractions(request, response, writer, context, manager, next);
+	}
+
+	@Test
+	void invoke_webapp_uri() throws ServletException, IOException {
+
+		// prepare
+		Mockito.when(request.getRequestURI()).thenReturn("/index.jsp");
+
+		// test
+		listener.invoke(request, response);
 
 		// verify
 		Mockito.verify(next).invoke(request, response);
-		Mockito.verifyNoMoreInteractions(next);
-		Mockito.verifyNoMoreInteractions(request);
-		Mockito.verifyNoMoreInteractions(response);
+		Mockito.verifyNoMoreInteractions(request, response, writer, next);
+	}
 
+	@Test
+	void invoke_endpoint_uri_without_usernames() throws ServletException, IOException {
+
+		// prepare
+		Mockito.doReturn("/session-logout-listener").when(request).getRequestURI();
+		Mockito.doReturn(null).when(request).getParameterValues("username");
+
+		// test
+		listener.invoke(request, response);
+
+		// verify
+		Mockito.verify(response).setStatus(200);
+		Mockito.verify(response).getWriter();
+		Mockito.verify(writer).println("OK");
+		Mockito.verifyNoMoreInteractions(request, response, writer, context, manager, next);
 	}
 
 }
