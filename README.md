@@ -56,7 +56,7 @@ Add the following lines to `$TOMCAT_HOME/conf/logging.properties`:
 
 ```properties
 # Enable debug logging for Tomcat Session Logout Listener
-net.markwalder.tomcat.SessionLogoutListener.level=FINE
+net.markwalder.tomcat.SessionLogoutListener.level = FINE
 ```
 
 When a request is sent to the session logout endpoint, the following log messages are written:
