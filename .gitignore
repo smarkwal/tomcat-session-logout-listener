@@ -1,0 +1,12 @@
+
+# Gradle installation
+/.gradle/
+
+# Gradle build directory
+/build/
+
+# IntelliJ project files
+/.idea/
+
+# Other files
+.DS_Store
