@@ -8,5 +8,9 @@
 # IntelliJ project files
 /.idea/
 
+# user-specific files
+/gradle.user.properties
+*.gpg
+
 # Other files
 .DS_Store
