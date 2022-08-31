@@ -36,7 +36,7 @@ Add the following line to `$TOMCAT_HOME/conf/server.xml` or `$TOMCAT_HOME/conf/c
 
 # Usage
 
-Send an HTTP `GET` request to the session logout endpoint with a parameter `username` set to the username of the user to be logged out:
+Send an HTTP `GET` or `POST` request to the session logout endpoint with a parameter `username` set to the username of the user to be logged out:
 
 ```
 GET /session-logout-listener?username=alice

@@ -40,6 +40,7 @@ import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.fluent.Request;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -113,11 +114,11 @@ public abstract class AbstractTomcatIntegrationTest {
 	// tests -------------------------------------------------------------------
 
 	@Test
-	@DisplayName("Request base URI")
-	void request_base_uri() throws IOException {
+	@DisplayName("GET /")
+	void get_root() throws IOException {
 
 		// prepare
-		String url = container.getURL();
+		String url = container.getURL() + "/";
 		Request request = Request.Get(url);
 
 		// test
@@ -134,11 +135,11 @@ public abstract class AbstractTomcatIntegrationTest {
 	}
 
 	@Test
-	@DisplayName("Request secure URI (unauthenticated)")
-	void request_secure_uri_unauthenticated() throws IOException {
+	@DisplayName("GET /secure/ (unauthenticated)")
+	void get_secure_unauthenticated() throws IOException {
 
 		// prepare
-		String url = container.getURL() + "/secure";
+		String url = container.getURL() + "/secure/";
 		Request request = Request.Get(url);
 
 		// test
@@ -155,11 +156,11 @@ public abstract class AbstractTomcatIntegrationTest {
 	}
 
 	@Test
-	@DisplayName("Request secure URI (authenticated)")
-	void request_secure_uri_authenticated() throws IOException {
+	@DisplayName("GET /secure/ (authenticated)")
+	void get_secure_authenticated() throws IOException {
 
 		// prepare
-		String url = container.getURL() + "/secure";
+		String url = container.getURL() + "/secure/";
 		String credentials = Base64.getEncoder().encodeToString("alice:alice11".getBytes());
 		Request request = Request.Get(url).addHeader("Authorization", "Basic " + credentials);
 
@@ -178,8 +179,8 @@ public abstract class AbstractTomcatIntegrationTest {
 	}
 
 	@Test
-	@DisplayName("Request session logout endpoint URI")
-	void request_session_logout_endpoint_URI() throws IOException {
+	@DisplayName("GET /session-logout-listener")
+	void get_session_logout_listener() throws IOException {
 
 		// prepare
 		String url = container.getURL() + "/session-logout-listener?username=alice";
@@ -194,6 +195,29 @@ public abstract class AbstractTomcatIntegrationTest {
 
 		String body = getBody(response);
 		assertEquals("OK", body);
+
+		// TODO: check Tomcat log output
+	}
+
+	@Test
+	@DisplayName("POST /session-logout-listener")
+	void post_session_logout_listener() throws IOException {
+
+		// prepare
+		String url = container.getURL() + "/session-logout-listener";
+		Request request = Request.Post(url).bodyForm(new BasicNameValuePair("username", "alice"));
+
+		// test
+		HttpResponse response = request.execute().returnResponse();
+
+		// assert
+		assertStatusCode(response, 200);
+		assertContentType(response, "text/plain; charset=UTF-8");
+
+		String body = getBody(response);
+		assertEquals("OK", body);
+
+		// TODO: check Tomcat log output
 	}
 
 	// helper methods ----------------------------------------------------------
