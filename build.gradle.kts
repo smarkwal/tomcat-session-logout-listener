@@ -13,7 +13,10 @@ plugins {
 }
 
 group = "net.markwalder"
-description = "Tomcat value for remote session invalidation."
+description = "Tomcat valve for remote session invalidation."
+
+val developerUrl = "https://github.com/smarkwal/"
+val projectUrl = developerUrl + project.name
 
 // load user-specific properties -----------------------------------------------
 
@@ -46,7 +49,7 @@ dependencies {
 
     // main dependencies -------------------------------------------------------
 
-    implementation("org.apache.tomcat:tomcat-catalina:9.0.65")
+    api("org.apache.tomcat:tomcat-catalina:9.0.65")
 
     // test dependencies -------------------------------------------------------
 
@@ -150,14 +153,14 @@ publishing {
 
             pom {
 
-                name.set("tomcat-session-logout-listener")
-                description.set("Tomcat value for remote session invalidation.")
-                url.set("https://github.com/smarkwal/tomcat-session-logout-listener")
+                name.set(project.name)
+                description.set(project.description)
+                url.set(projectUrl)
 
                 licenses {
                     license {
                         name.set("MIT")
-                        url.set("https://github.com/smarkwal/tomcat-session-logout-listener/blob/main/LICENSE")
+                        url.set("$projectUrl/blob/main/LICENSE")
                     }
                 }
 
@@ -166,14 +169,14 @@ publishing {
                         id.set("smarkwal")
                         name.set("Stephan Markwalder")
                         email.set("stephan@markwalder.net")
-                        url.set("https://github.com/smarkwal")
+                        url.set(developerUrl)
                     }
                 }
 
                 scm {
-                    connection.set("scm:git:git://github.com/smarkwal/tomcat-session-logout-listener.git")
-                    developerConnection.set("scm:git:ssh://github.com/smarkwal/tomcat-session-logout-listener.git")
-                    url.set("https://github.com/smarkwal/tomcat-session-logout-listener")
+                    connection.set(projectUrl.replace("https://", "scm:git:git://") + ".git")
+                    developerConnection.set(projectUrl.replace("https://", "scm:git:ssh://") + ".git")
+                    url.set(projectUrl)
                 }
 
             }
