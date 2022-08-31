@@ -3,7 +3,7 @@ import org.gradle.api.tasks.testing.logging.TestLogEvent
 import java.util.*
 
 plugins {
-    java
+    `java-library`
     jacoco
     signing
     `maven-publish`
@@ -44,15 +44,37 @@ repositories {
 
 dependencies {
 
-    // main dependencies
+    // main dependencies -------------------------------------------------------
+
     implementation("org.apache.tomcat:tomcat-catalina:9.0.65")
 
-    // test dependencies
+    // test dependencies -------------------------------------------------------
+
+    // JUnit 5
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.0")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.0")
+
+    // Mockito
     testImplementation("org.mockito:mockito-core:4.7.0")
     testImplementation("org.mockito:mockito-junit-jupiter:4.7.0")
+
+    // AssertJ
     testImplementation("org.assertj:assertj-core:3.23.1")
+
+    // Testcontainers
+    testImplementation("org.testcontainers:testcontainers:1.17.3")
+    testImplementation("org.testcontainers:junit-jupiter:1.17.3")
+
+    // Apache HttpClient
+    testImplementation("org.apache.httpcomponents:httpclient:4.5.13")
+    testImplementation("org.apache.httpcomponents:fluent-hc:4.5.13")
+
+    // Apache Commons IO
+    testImplementation("commons-io:commons-io:2.11.0")
+
+    // SLF4J
+    testImplementation("org.slf4j:slf4j-api:2.0.0")
+    testRuntimeOnly("org.slf4j:slf4j-simple:2.0.0")
 }
 
 java {
@@ -76,7 +98,20 @@ tasks.withType<JavaCompile> {
     options.encoding = "ASCII"
 }
 
+tasks.withType<Jar> {
+    manifest {
+        attributes["Version"] = project.version
+    }
+}
+
 tasks.getByName<Test>("test") {
+
+    // make sure that JAR file has been built before tests are executed
+    dependsOn("jar")
+
+    // pass JAR file path to tests as system property
+    val archiveFilePath = tasks.jar.get().archiveFile.get().asFile.absolutePath
+    systemProperty("project.archiveFilePath", archiveFilePath)
 
     // use JUnit 5
     useJUnitPlatform()
