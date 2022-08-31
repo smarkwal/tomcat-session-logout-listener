@@ -120,7 +120,8 @@ public class SessionLogoutListener extends ValveBase {
 	private static void sendResponse(Response response) throws IOException {
 		response.setStatus(200);
 		response.setContentType("text/plain");
-		response.getWriter().println("OK");
+		response.setCharacterEncoding("UTF-8");
+		response.getWriter().print("OK");
 	}
 
 }
