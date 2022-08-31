@@ -16,9 +16,9 @@ export JAVA_HOME=/path/to/java-1.8
 
 # build JAR file
 ./gradlew clean jar
-
-# -> you can find the JAR file in build/libs
 ```
+
+The JAR file `tomcat-session-logout-listener-<version>.jar` can be found in `build/libs`.
 
 # Installation
 
@@ -48,7 +48,7 @@ It is possible to log out multiple users at once by specifying the parameter `us
 GET /session-logout-listener?username=alice&username=bob
 ```
 
-The session logout endpoint will always return an HTTP response with status code 200 (OK), content type "text/plain", and the text "OK" as body.
+The session logout endpoint will always return an HTTP response with status code 200 (OK), content type "text/plain", character set "UTF-8", and the text "OK" as body.
 
 # Logging
 
