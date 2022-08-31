@@ -1,12 +1,14 @@
 # Tomcat Session Logout Listener
 
-Tomcat value for remote session invalidation.
+Tomcat valve for remote session invalidation.
 
-This valve waits for HTTP/S requests sent to the session logout endpoint `/session-logout-listener`.
+This valve waits for HTTP requests sent to the session logout endpoint `/session-logout-listener`.
 If such a request is received, it is intercepted and processed by the valve.
 The valve looks for a parameter with name `username`.
 If the parameter is present, the valve iterates over all active Tomcat sessions and
 invalidate all sessions with a principal name matching the parameter value.
+
+Tested with Tomcat 7.0.109, Tomcat 8.5.82, and Tomcat 9.0.65.
 
 # Build
 
