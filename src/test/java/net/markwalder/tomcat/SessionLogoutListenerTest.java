@@ -34,6 +34,7 @@ import org.apache.catalina.Session;
 import org.apache.catalina.Valve;
 import org.apache.catalina.connector.Request;
 import org.apache.catalina.connector.Response;
+import org.apache.juli.logging.Log;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -65,7 +66,10 @@ class SessionLogoutListenerTest {
 	@Mock
 	Principal principal;
 
-	SessionLogoutListener listener = new SessionLogoutListener();
+	@Mock
+	Log log;
+
+	SessionLogoutListener listener;
 
 	@Mock
 	Valve next;
@@ -76,6 +80,7 @@ class SessionLogoutListenerTest {
 		Mockito.lenient().doReturn(context).when(request).getContext();
 		Mockito.lenient().doReturn(manager).when(context).getManager();
 
+		listener = new SessionLogoutListener(log);
 		listener.setNext(next);
 	}
 
@@ -85,15 +90,19 @@ class SessionLogoutListenerTest {
 		// prepare
 		Mockito.doReturn("/session-logout-listener").when(request).getRequestURI();
 		Mockito.doReturn(new String[] { "alice", "bob" }).when(request).getParameterValues("username");
+		Mockito.doReturn(true).when(log).isDebugEnabled();
 		Mockito.doReturn(new Session[] { session }).when(manager).findSessions();
 		Mockito.doReturn(principal).when(session).getPrincipal();
 		Mockito.doReturn(true).when(session).isValid();
+		Mockito.doReturn("12345678901234567890").when(session).getId();
 		Mockito.doReturn("alice").when(principal).getName();
 
 		// test
 		listener.invoke(request, response);
 
 		// verify
+		Mockito.verify(log, Mockito.times(2)).isDebugEnabled();
+		Mockito.verify(log).debug("usernames: 'alice', 'bob'");
 		Mockito.verify(request).getContext();
 		Mockito.verify(context).getManager();
 		Mockito.verify(manager).findSessions();
@@ -101,12 +110,14 @@ class SessionLogoutListenerTest {
 		Mockito.verify(principal).getName();
 		Mockito.verify(session).isValid();
 		Mockito.verify(session).getId();
+		Mockito.verify(session).expire();
+		Mockito.verify(log).debug("session: id='12345678...', principal='alice'");
 		Mockito.verify(response).setStatus(200);
 		Mockito.verify(response).setContentType("text/plain");
 		Mockito.verify(response).setCharacterEncoding("UTF-8");
 		Mockito.verify(response).getWriter();
 		Mockito.verify(writer).print("OK");
-		Mockito.verifyNoMoreInteractions(request, response, writer, context, manager, next);
+		Mockito.verifyNoMoreInteractions(request, response, writer, context, manager, session, principal, log, next);
 	}
 
 	@Test
@@ -120,7 +131,7 @@ class SessionLogoutListenerTest {
 
 		// verify
 		Mockito.verify(next).invoke(request, response);
-		Mockito.verifyNoMoreInteractions(request, response, writer, next);
+		Mockito.verifyNoMoreInteractions(request, response, writer, context, manager, session, principal, log, next);
 	}
 
 	@Test
@@ -139,7 +150,7 @@ class SessionLogoutListenerTest {
 		Mockito.verify(response).setCharacterEncoding("UTF-8");
 		Mockito.verify(response).getWriter();
 		Mockito.verify(writer).print("OK");
-		Mockito.verifyNoMoreInteractions(request, response, writer, context, manager, next);
+		Mockito.verifyNoMoreInteractions(request, response, writer, context, manager, session, principal, log, next);
 	}
 
 }

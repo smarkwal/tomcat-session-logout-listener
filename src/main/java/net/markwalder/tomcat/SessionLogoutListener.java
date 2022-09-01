@@ -44,7 +44,16 @@ public class SessionLogoutListener extends ValveBase {
 	private static final String ENDPOINT_URI = "/session-logout-listener";
 	private static final String USERNAME_PARAMETER = "username";
 
-	private static final Log log = LogFactory.getLog(SessionLogoutListener.class);
+	private final Log log;
+
+	public SessionLogoutListener() {
+		this(LogFactory.getLog(SessionLogoutListener.class));
+	}
+
+	// visible for testing
+	SessionLogoutListener(Log log) {
+		this.log = log;
+	}
 
 	@Override
 	public void invoke(Request request, Response response) throws IOException, ServletException {
@@ -72,7 +81,7 @@ public class SessionLogoutListener extends ValveBase {
 
 	}
 
-	private static void logoutUsers(Request request, String[] usernames) {
+	private void logoutUsers(Request request, String[] usernames) {
 
 		if (log.isDebugEnabled()) {
 			log.debug("usernames: '" + String.join("', '", usernames) + "'");
