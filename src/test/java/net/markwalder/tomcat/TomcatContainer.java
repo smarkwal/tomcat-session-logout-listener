@@ -41,6 +41,8 @@ public class TomcatContainer extends GenericContainer<TomcatContainer> {
 
 	private final String tomcatVersion;
 
+	private final StringBuilder log = new StringBuilder();
+
 	public TomcatContainer(String tomcatVersion) {
 		super(getDockerImageName(tomcatVersion));
 		this.tomcatVersion = tomcatVersion;
@@ -64,8 +66,7 @@ public class TomcatContainer extends GenericContainer<TomcatContainer> {
 	 * @param resource Resource on classpath used as server.xml file.
 	 */
 	public TomcatContainer withServerXML(String resource) {
-		withClasspathResourceMapping(resource, TOMCAT_HOME + "/conf/server.xml", BindMode.READ_ONLY);
-		return this;
+		return withClasspathResourceMapping(resource, TOMCAT_HOME + "/conf/server.xml", BindMode.READ_ONLY);
 	}
 
 	/**
@@ -74,8 +75,7 @@ public class TomcatContainer extends GenericContainer<TomcatContainer> {
 	 * @param resource Resource on classpath used as context.xml file.
 	 */
 	public TomcatContainer withContextXML(String resource) {
-		withClasspathResourceMapping(resource, TOMCAT_HOME + "/conf/context.xml", BindMode.READ_ONLY);
-		return this;
+		return withClasspathResourceMapping(resource, TOMCAT_HOME + "/conf/context.xml", BindMode.READ_ONLY);
 	}
 
 	/**
@@ -84,8 +84,7 @@ public class TomcatContainer extends GenericContainer<TomcatContainer> {
 	 * @param resource Resource on classpath used as tomcat-users.xml file.
 	 */
 	public TomcatContainer withTomcatUsersXML(String resource) {
-		withClasspathResourceMapping(resource, TOMCAT_HOME + "/conf/tomcat-users.xml", BindMode.READ_ONLY);
-		return this;
+		return withClasspathResourceMapping(resource, TOMCAT_HOME + "/conf/tomcat-users.xml", BindMode.READ_ONLY);
 	}
 
 	/**
@@ -94,8 +93,7 @@ public class TomcatContainer extends GenericContainer<TomcatContainer> {
 	 * @param resource Resource on classpath used as logging.properties file.
 	 */
 	public TomcatContainer withLoggingProperties(String resource) {
-		withClasspathResourceMapping(resource, TOMCAT_HOME + "/conf/logging.properties", BindMode.READ_ONLY);
-		return this;
+		return withClasspathResourceMapping(resource, TOMCAT_HOME + "/conf/logging.properties", BindMode.READ_ONLY);
 	}
 
 	/**
@@ -155,13 +153,31 @@ public class TomcatContainer extends GenericContainer<TomcatContainer> {
 			switch (outputFrame.getType()) {
 				case STDOUT:
 				case STDERR:
-					System.out.print("[Container Log] " + outputFrame.getUtf8String());
+					String message = outputFrame.getUtf8String();
+					System.out.print("[Container Log] " + message);
+					log.append(message).append("\n");
 				case END:
 					// ignore
 			}
 		};
 
 		followOutput(logConsumer);
+	}
+
+	public String getLog() {
+
+		// TODO: find a better way to make sure that Docker log output has been flushed
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// ignore
+		}
+
+		return log.toString();
+	}
+
+	public void clearLog() {
+		log.setLength(0);
 	}
 
 	/**

@@ -26,26 +26,44 @@ package net.markwalder.tomcat;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Base64;
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.fluent.Request;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.CookieStore;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.cookie.Cookie;
+import org.apache.http.impl.client.BasicCookieStore;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.client.LaxRedirectStrategy;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.io.TempDir;
 
+@TestMethodOrder(MethodOrderer.DisplayName.class)
 public abstract class AbstractTomcatIntegrationTest {
 
 	/**
@@ -53,6 +71,12 @@ public abstract class AbstractTomcatIntegrationTest {
 	 * The system property 'project.archiveFilePath' is set in build.gradle.kts.
 	 */
 	private static final String JAR_FILE = System.getProperty("project.archiveFilePath", "unknown.jar");
+
+	private static final String SESSION_COOKIE = "JSESSIONID";
+	private static final String CONTENT_TYPE_PLAIN = "text/plain;charset=UTF-8";
+	private static final String CONTENT_TYPE_HTML = "text/html;charset=UTF-8";
+	private static final String LOGIN_PAGE_HEADER = "X-LoginPage";
+	private static final String LOGGER_NAME = SessionLogoutListener.class.getName();
 
 	/**
 	 * Temporary folder for web application.
@@ -72,6 +96,7 @@ public abstract class AbstractTomcatIntegrationTest {
 			copyResourceToWebApp("secure/index.jsp", webappDir);
 			copyResourceToWebApp("error.jsp", webappDir);
 			copyResourceToWebApp("index.jsp", webappDir);
+			copyResourceToWebApp("login.jsp", webappDir);
 		} catch (IOException e) {
 			fail("Failed to create web application: " + webappDir.getAbsolutePath(), e);
 		}
@@ -107,8 +132,25 @@ public abstract class AbstractTomcatIntegrationTest {
 	 */
 	private final TomcatContainer container;
 
+	/**
+	 * HTTP client instance (new instance for every test).
+	 */
+	private final CookieStore cookieStore = new BasicCookieStore();
+	private final CloseableHttpClient client = HttpClients.custom()
+			.setDefaultCookieStore(cookieStore)
+			.setRedirectStrategy(LaxRedirectStrategy.INSTANCE)
+			.build();
+
 	AbstractTomcatIntegrationTest(TomcatContainer container) {
 		this.container = container;
+	}
+
+	// lifecycle ---------------------------------------------------------------
+
+	@AfterEach
+	void tearDown() throws IOException {
+		client.close();
+		container.clearLog();
 	}
 
 	// tests -------------------------------------------------------------------
@@ -118,113 +160,217 @@ public abstract class AbstractTomcatIntegrationTest {
 	void get_root() throws IOException {
 
 		// prepare
-		String url = container.getURL() + "/";
-		Request request = Request.Get(url);
+		HttpUriRequest request = get("/");
 
 		// test
-		HttpResponse response = request.execute().returnResponse();
+		try (CloseableHttpResponse response = client.execute(request)) {
 
-		// assert
-		assertStatusCode(response, 200);
-		assertContentType(response, "text/plain; charset=UTF-8");
+			// assert
+			assertOK(response);
+			assertContentType(response, CONTENT_TYPE_PLAIN);
 
-		// TODO: String sessionId = getSessionId(response);
-		Properties properties = getProperties(response);
-		assertThat(properties).containsKey("session.id");
-		assertThat(properties).hasSize(1);
+			String sessionId = getSessionId(cookieStore);
+			Properties properties = getProperties(response);
+			assertThat(properties).containsEntry("session.id", sessionId);
+			assertThat(properties).hasSize(1);
+		}
 	}
 
 	@Test
-	@DisplayName("GET /secure/ (unauthenticated)")
-	void get_secure_unauthenticated() throws IOException {
+	@DisplayName("GET /secure/")
+	void get_secure() throws IOException {
 
 		// prepare
-		String url = container.getURL() + "/secure/";
-		Request request = Request.Get(url);
+		HttpUriRequest request = get("/secure/");
 
 		// test
-		HttpResponse response = request.execute().returnResponse();
+		try (CloseableHttpResponse response = client.execute(request)) {
 
-		// assert
-		assertStatusCode(response, 401);
-		assertContentType(response, "text/plain; charset=UTF-8");
+			// assert
+			assertOK(response);
+			assertContentType(response, CONTENT_TYPE_HTML);
+			assertTrue(response.containsHeader(LOGIN_PAGE_HEADER));
+		}
 
-		// TODO: String sessionId = getSessionId(response);
-		Properties properties = getProperties(response);
-		assertThat(properties).containsKey("session.id");
-		assertThat(properties).hasSize(1);
+		// login
+		request = post("/j_security_check", param("j_username", "user1"), param("j_password", "password1"));
+
+		// test
+		try (CloseableHttpResponse response = client.execute(request)) {
+
+			// assert
+			assertOK(response);
+			assertContentType(response, CONTENT_TYPE_PLAIN);
+
+			String sessionId = getSessionId(cookieStore);
+			Properties properties = getProperties(response);
+			assertThat(properties).containsEntry("session.id", sessionId);
+			assertThat(properties).containsEntry("principal.name", "user1");
+			assertThat(properties).hasSize(2);
+		}
 	}
 
 	@Test
-	@DisplayName("GET /secure/ (authenticated)")
-	void get_secure_authenticated() throws IOException {
+	@DisplayName("GET /session-logout-listener (1 - single user)")
+	void get_session_logout_listener_single_user() throws IOException {
 
 		// prepare
-		String url = container.getURL() + "/secure/";
-		String credentials = Base64.getEncoder().encodeToString("alice:alice11".getBytes());
-		Request request = Request.Get(url).addHeader("Authorization", "Basic " + credentials);
+		HttpUriRequest request = get("/session-logout-listener?username=userX");
 
 		// test
-		HttpResponse response = request.execute().returnResponse();
+		try (CloseableHttpResponse response = client.execute(request)) {
 
-		// assert
-		assertStatusCode(response, 200);
-		assertContentType(response, "text/plain; charset=UTF-8");
+			// assert
+			assertOK(response);
+			assertContentType(response, CONTENT_TYPE_PLAIN);
+			assertBody(response, "OK");
+		}
 
-		String sessionId = getSessionId(response);
-		Properties properties = getProperties(response);
-		assertThat(properties).containsEntry("session.id", sessionId);
-		assertThat(properties).containsEntry("principal.name", "alice");
-		assertThat(properties).hasSize(2);
+		// check Tomcat log output
+		String log = container.getLog().trim();
+		assertThat(log).endsWith(LOGGER_NAME + ".logoutUsers usernames: 'userX'");
 	}
 
 	@Test
-	@DisplayName("GET /session-logout-listener")
-	void get_session_logout_listener() throws IOException {
+	@DisplayName("GET /session-logout-listener (2 - multiple users)")
+	void get_session_logout_listener_multiple_users() throws IOException {
 
 		// prepare
-		String url = container.getURL() + "/session-logout-listener?username=alice";
-		Request request = Request.Get(url);
+		HttpUriRequest request = get("/session-logout-listener?username=userX&username=userY");
 
 		// test
-		HttpResponse response = request.execute().returnResponse();
+		try (CloseableHttpResponse response = client.execute(request)) {
 
-		// assert
-		assertStatusCode(response, 200);
-		assertContentType(response, "text/plain; charset=UTF-8");
+			// assert
+			assertOK(response);
+			assertContentType(response, CONTENT_TYPE_PLAIN);
+			assertBody(response, "OK");
+		}
 
-		String body = getBody(response);
-		assertEquals("OK", body);
-
-		// TODO: check Tomcat log output
+		// check Tomcat log output
+		String log = container.getLog().trim();
+		assertThat(log).endsWith(LOGGER_NAME + ".logoutUsers usernames: 'userX', 'userY'");
 	}
 
 	@Test
-	@DisplayName("POST /session-logout-listener")
-	void post_session_logout_listener() throws IOException {
+	@DisplayName("POST /session-logout-listener (1 - single user)")
+	void post_session_logout_listener_single_user() throws IOException {
 
 		// prepare
-		String url = container.getURL() + "/session-logout-listener";
-		Request request = Request.Post(url).bodyForm(new BasicNameValuePair("username", "alice"));
+		HttpUriRequest request = post("/session-logout-listener", param("username", "userX"));
 
 		// test
-		HttpResponse response = request.execute().returnResponse();
+		try (CloseableHttpResponse response = client.execute(request)) {
 
-		// assert
-		assertStatusCode(response, 200);
-		assertContentType(response, "text/plain; charset=UTF-8");
+			// assert
+			assertOK(response);
+			assertContentType(response, CONTENT_TYPE_PLAIN);
+			assertBody(response, "OK");
+		}
 
-		String body = getBody(response);
-		assertEquals("OK", body);
+		// check Tomcat log output
+		String log = container.getLog().trim();
+		assertThat(log).endsWith(LOGGER_NAME + ".logoutUsers usernames: 'userX'");
+	}
 
-		// TODO: check Tomcat log output
+	@Test
+	@DisplayName("POST /session-logout-listener (2 - multiple users)")
+	void post_session_logout_listener_multiple_users() throws IOException {
+
+		// prepare
+		HttpUriRequest request = post("/session-logout-listener", param("username", "userX"), param("username", "userY"));
+
+		// test
+		try (CloseableHttpResponse response = client.execute(request)) {
+
+			// assert
+			assertOK(response);
+			assertContentType(response, CONTENT_TYPE_PLAIN);
+			assertBody(response, "OK");
+		}
+
+		// check Tomcat log output
+		String log = container.getLog().trim();
+		assertThat(log).endsWith(LOGGER_NAME + ".logoutUsers usernames: 'userX', 'userY'");
+	}
+
+	@Test
+	@DisplayName("POST /session-logout-listener (3 - active sessions)")
+	void post_session_logout_listener_active_sessions() throws IOException {
+
+		// prepare: login user 1 and 2
+		String sessionId1 = login("user1", "password1");
+		String sessionId2 = login("user2", "password2");
+
+		// prepare
+		HttpUriRequest request = post("/session-logout-listener", param("username", "user1"), param("username", "user2"));
+
+		// test
+		try (CloseableHttpResponse response = client.execute(request)) {
+
+			// assert
+			assertOK(response);
+			assertContentType(response, CONTENT_TYPE_PLAIN);
+			assertBody(response, "OK");
+		}
+
+		// check Tomcat log output
+		String log = container.getLog();
+		assertThat(log).contains(
+				LOGGER_NAME + ".logoutUsers usernames: 'user1', 'user2'\n",
+				LOGGER_NAME + ".logoutUsers session: id='" + SessionLogoutListener.truncateSessionId(sessionId1) + "...', principal='user1'\n",
+				LOGGER_NAME + ".logoutUsers session: id='" + SessionLogoutListener.truncateSessionId(sessionId2) + "...', principal='user2'\n"
+		);
 	}
 
 	// helper methods ----------------------------------------------------------
 
-	private static void assertStatusCode(HttpResponse response, int expectedStatusCode) {
+	private HttpGet get(String path) {
+		String url = container.getURL() + path;
+		return new HttpGet(url);
+	}
+
+	private HttpPost post(String path, NameValuePair... parameters) {
+		String url = container.getURL() + path;
+		HttpPost request = new HttpPost(url);
+		request.setEntity(new UrlEncodedFormEntity(Arrays.asList(parameters), StandardCharsets.UTF_8));
+		return request;
+	}
+
+	private String login(String username, String password) throws IOException {
+
+		// GET /secure/
+		HttpUriRequest request = get("/secure/");
+		try (CloseableHttpResponse response = client.execute(request)) {
+			assertOK(response);
+			assertContentType(response, CONTENT_TYPE_HTML);
+			assertTrue(response.containsHeader(LOGIN_PAGE_HEADER));
+		}
+
+		// POST /j_security_check
+		request = post("/j_security_check", param("j_username", username), param("j_password", password));
+		try (CloseableHttpResponse response = client.execute(request)) {
+			assertOK(response);
+			assertContentType(response, CONTENT_TYPE_PLAIN);
+		}
+
+		// get session ID from cookie
+		String sessionId = getSessionId(cookieStore);
+		assertNotNull(sessionId);
+
+		// clear cookies
+		cookieStore.clear();
+
+		return sessionId;
+	}
+
+	private static NameValuePair param(String name, String value) {
+		return new BasicNameValuePair(name, value);
+	}
+
+	private static void assertOK(HttpResponse response) {
 		int statusCode = response.getStatusLine().getStatusCode();
-		assertEquals(expectedStatusCode, statusCode);
+		assertEquals(200, statusCode);
 	}
 
 	private static void assertContentType(HttpResponse response, String expectedContentType) {
@@ -233,20 +379,20 @@ public abstract class AbstractTomcatIntegrationTest {
 		assertEquals(expectedContentType, contentType.getValue());
 	}
 
-	private static String getSessionId(HttpResponse response) {
-		Header[] cookies = response.getHeaders("Set-Cookie");
-		for (Header cookie : cookies) {
-			String value = cookie.getValue();
-			if (value.startsWith("JSESSIONID=")) {
-				return value.substring(value.indexOf("=") + 1, value.indexOf(";"));
+	private static String getSessionId(CookieStore cookieStore) {
+		List<Cookie> cookies = cookieStore.getCookies();
+		for (Cookie cookie : cookies) {
+			if (cookie.getName().equals(SESSION_COOKIE)) {
+				return cookie.getValue();
 			}
 		}
 		return null;
 	}
 
-	private static String getBody(HttpResponse response) throws IOException {
+	private static void assertBody(CloseableHttpResponse response, String expectedBody) throws IOException {
 		HttpEntity entity = response.getEntity();
-		return EntityUtils.toString(entity);
+		String body = EntityUtils.toString(entity);
+		assertEquals(expectedBody, body);
 	}
 
 	private static Properties getProperties(HttpResponse response) throws IOException {
