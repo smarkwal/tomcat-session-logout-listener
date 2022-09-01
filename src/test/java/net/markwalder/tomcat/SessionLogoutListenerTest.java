@@ -87,6 +87,7 @@ class SessionLogoutListenerTest {
 		Mockito.doReturn(new String[] { "alice", "bob" }).when(request).getParameterValues("username");
 		Mockito.doReturn(new Session[] { session }).when(manager).findSessions();
 		Mockito.doReturn(principal).when(session).getPrincipal();
+		Mockito.doReturn(true).when(session).isValid();
 		Mockito.doReturn("alice").when(principal).getName();
 
 		// test
@@ -98,6 +99,7 @@ class SessionLogoutListenerTest {
 		Mockito.verify(manager).findSessions();
 		Mockito.verify(session).getPrincipal();
 		Mockito.verify(principal).getName();
+		Mockito.verify(session).isValid();
 		Mockito.verify(session).getId();
 		Mockito.verify(response).setStatus(200);
 		Mockito.verify(response).setContentType("text/plain");

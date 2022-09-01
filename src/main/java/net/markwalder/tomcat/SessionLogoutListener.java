@@ -89,24 +89,29 @@ public class SessionLogoutListener extends ValveBase {
 		// for every session ...
 		for (Session session : sessions) {
 
-			// if session contains a principal (has been authenticated) ...
-			Principal principal = session.getPrincipal();
-			if (principal != null) {
+			// if the session is still valid ...
+			if (session.isValid()) {
 
-				// if principal name matches one of the usernames ...
-				String principalName = principal.getName();
-				if (usernamesSet.contains(principalName)) {
+				// if session contains a principal (has been authenticated) ...
+				Principal principal = session.getPrincipal();
+				if (principal != null) {
 
-					String sessionId = session.getId();
+					// if principal name matches one of the usernames ...
+					String principalName = principal.getName();
+					if (usernamesSet.contains(principalName)) {
 
-					// logout the session
-					session.expire();
+						// remember session ID
+						String sessionId = session.getId();
 
-					if (log.isDebugEnabled()) {
-						String truncatedSessionId = sessionId.substring(0, 8); // log only first 8 characters of session ID
-						log.debug("session: id='" + truncatedSessionId + "...', principal='" + principalName + "'");
+						// logout the session
+						session.expire();
+
+						if (log.isDebugEnabled()) {
+							String truncatedSessionId = truncateSessionId(sessionId); // log only first 8 characters of session ID
+							log.debug("session: id='" + truncatedSessionId + "...', principal='" + principalName + "'");
+						}
+
 					}
-
 				}
 			}
 		}
@@ -115,6 +120,10 @@ public class SessionLogoutListener extends ValveBase {
 	private static Session[] getAllSessions(Context context) {
 		Manager manager = context.getManager();
 		return manager.findSessions();
+	}
+
+	public static String truncateSessionId(String sessionId) {
+		return sessionId.substring(0, 8);
 	}
 
 	private static void sendResponse(Response response) throws IOException {
