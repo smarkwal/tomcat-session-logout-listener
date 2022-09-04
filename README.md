@@ -58,6 +58,8 @@ This valve has been tested with the following software components:
 * Tomcat 7.0.109, Tomcat 8.5.82, and Tomcat 9.0.65.
 * Java 8, Java 11, and Java 17.
 
+Note: The valve is not compatible with Tomcat 10.0.0 or newer.
+
 # Download
 
 The latest release is available on [GitHub](https://github.com/smarkwal/tomcat-session-logout-listener/releases)
