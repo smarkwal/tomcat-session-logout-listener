@@ -2,14 +2,12 @@
 
 [![Release](https://img.shields.io/github/v/release/smarkwal/tomcat-session-logout-listener?label=Latest)](https://github.com/smarkwal/tomcat-session-logout-listener/releases/latest)
 [![License](https://img.shields.io/github/license/smarkwal/tomcat-session-logout-listener?label=License)](https://github.com/smarkwal/tomcat-session-logout-listener/blob/main/LICENSE)
-[![Build](https://github.com/smarkwal/tomcat-session-logout-listener/actions/workflows/build.yml/badge.svg)](https://github.com/smarkwal/tomcat-session-logout-listener/actions/workflows/build.yml)
 [![Issues](https://img.shields.io/github/issues/smarkwal/tomcat-session-logout-listener?label=Issues)](https://github.com/smarkwal/tomcat-session-logout-listener/issues)
 
-<!--
+[![Build](https://github.com/smarkwal/tomcat-session-logout-listener/actions/workflows/build.yml/badge.svg)](https://github.com/smarkwal/tomcat-session-logout-listener/actions/workflows/build.yml)
 [![Tests](https://img.shields.io/sonar/tests/smarkwal_tomcat-session-logout-listener/main?label=Tests&server=https%3A%2F%2Fsonarcloud.io)](https://sonarcloud.io/component_measures?id=smarkwal_tomcat-session-logout-listener&metric=test_success_density&selected=smarkwal_tomcat-session-logout-listener%3Asrc%2Ftest%2Fjava%2Forg%2Fsession-logout-listener)
 [![Coverage](https://img.shields.io/sonar/coverage/smarkwal_tomcat-session-logout-listener/main?label=Coverage&server=https%3A%2F%2Fsonarcloud.io)](https://sonarcloud.io/component_measures?id=smarkwal_tomcat-session-logout-listener&metric=coverage&view=list)
 [![Quality](https://img.shields.io/sonar/quality_gate/smarkwal_tomcat-session-logout-listener/main?label=Quality&server=https%3A%2F%2Fsonarcloud.io)](https://sonarcloud.io/dashboard?id=smarkwal_tomcat-session-logout-listener)
--->
 
 Tomcat valve for remote session invalidation.
 
@@ -228,8 +226,8 @@ This project is licensed under the [MIT license](https://github.com/smarkwal/tom
 To build this project from source code, execute the following command:
 
 ```shell
-# set JAVA_HOME to a JDK 1.8
-export JAVA_HOME=/path/to/java-1.8
+# set JAVA_HOME to a JDK 11
+export JAVA_HOME=/path/to/java-11
 
 # build JAR file
 ./gradlew clean jar

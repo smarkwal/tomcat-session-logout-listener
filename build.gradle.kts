@@ -40,8 +40,8 @@ if (userPropertiesFile.exists()) {
 
 // Java version check ----------------------------------------------------------
 
-if (!JavaVersion.current().isJava8Compatible) {
-    val error = "Build requires Java 8 and does not run on Java ${JavaVersion.current().majorVersion}."
+if (!JavaVersion.current().isJava11Compatible) {
+    val error = "Build requires Java 11 and does not run on Java ${JavaVersion.current().majorVersion}."
     throw GradleException(error)
 }
 
