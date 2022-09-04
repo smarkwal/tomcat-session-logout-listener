@@ -43,6 +43,14 @@ sequenceDiagram
     Tomcat Valve->>-Client: "OK"
 ```
 
+### Note
+
+This project does not provide a solution for how to invoke the web hook.
+
+Please consult the documentation of your user management system for how to be notified of changes to user identities.
+Maybe it offers this functionality out of the box, maybe you have to implement some kind of plugin,
+or maybe you have to write a custom component that periodically polls the user management system for changes.
+
 ## Requirements and compatibility
 
 This valve has been tested with the following software components:
