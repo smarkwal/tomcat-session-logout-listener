@@ -160,7 +160,9 @@ username=alice&username=bob
 
 Note that if your web application is deployed in a context path other than `/`, you must include the context path in the request URL.
 
-The session logout endpoint will always return an HTTP response with status code 200 (OK), content type "text/plain", character set "UTF-8", and the text "OK" as body:
+### Successful response
+
+The session logout endpoint will return an HTTP response with status code 200 (OK), content type "text/plain", character set "UTF-8", and the text "OK" as body:
 
 ```
 HTTP/1.1 200 OK
@@ -168,6 +170,28 @@ Content-Type: text/plain;charset=UTF-8
 Content-Length: 2
 
 OK
+```
+
+### Error response
+
+If the client's IP address or password is not accepted by the valve, an HTTP response with status code 403 (Forbidden) and the text "Forbidden" is returned:
+
+```
+HTTP/1.1 403 Forbidden
+Content-Type: text/plain;charset=UTF-8
+Content-Length: 8
+
+Forbidden
+```
+
+More details can be found in Tomcat's log file.
+
+Example log messages:
+
+```
+WARN [http-nio-8080-exec-1] net.markwalder.tomcat.RemoteAddrCheck.test Remote address '123.45.67.89' does not match IP filter.
+WARN [http-nio-8080-exec-1] net.markwalder.tomcat.PasswordCheck.test No password found in request.
+WARN [http-nio-8080-exec-1] net.markwalder.tomcat.PasswordCheck.test Incorrect password.
 ```
 
 ### Clusters

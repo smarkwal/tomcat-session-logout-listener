@@ -105,7 +105,7 @@ class PasswordCheckTest {
 		assertFalse(result);
 
 		// verify
-		Mockito.verify(log).warn("No password found in request");
+		Mockito.verify(log).warn("No password found in request.");
 		Mockito.verifyNoMoreInteractions(request, passwordProvider, log);
 
 	}
@@ -124,7 +124,7 @@ class PasswordCheckTest {
 		assertFalse(result);
 
 		// verify
-		Mockito.verify(log).warn("Incorrect password");
+		Mockito.verify(log).warn("Incorrect password.");
 		Mockito.verifyNoMoreInteractions(request, passwordProvider, log);
 
 	}

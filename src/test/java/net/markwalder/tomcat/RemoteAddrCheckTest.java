@@ -124,7 +124,7 @@ class RemoteAddrCheckTest {
 		assertFalse(result);
 
 		// verify
-		Mockito.verify(log).warn("No remote address found in request");
+		Mockito.verify(log).warn("No remote address found in request.");
 		Mockito.verifyNoMoreInteractions(request, ipFilterProvider, log);
 
 	}

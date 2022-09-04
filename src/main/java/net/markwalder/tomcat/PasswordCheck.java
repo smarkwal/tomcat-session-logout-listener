@@ -62,14 +62,14 @@ class PasswordCheck implements Predicate<Request> {
 		// get password from request
 		String requestPassword = request.getParameter(PASSWORD_PARAMETER);
 		if (requestPassword == null) {
-			log.warn("No password found in request");
+			log.warn("No password found in request.");
 			return false;
 		}
 
 		// compare passwords
 		boolean result = password.equals(requestPassword);
 		if (!result) {
-			log.warn("Incorrect password");
+			log.warn("Incorrect password.");
 			return false;
 		}
 

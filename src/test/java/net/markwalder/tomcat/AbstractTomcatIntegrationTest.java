@@ -344,7 +344,7 @@ public abstract class AbstractTomcatIntegrationTest {
 
 		// check Tomcat log output
 		String log = container.getLog().trim();
-		assertThat(log).endsWith("net.markwalder.tomcat.PasswordCheck.test No password found in request");
+		assertThat(log).endsWith("net.markwalder.tomcat.PasswordCheck.test No password found in request.");
 	}
 
 	@Test
@@ -365,7 +365,7 @@ public abstract class AbstractTomcatIntegrationTest {
 
 		// check Tomcat log output
 		String log = container.getLog().trim();
-		assertThat(log).endsWith("net.markwalder.tomcat.PasswordCheck.test Incorrect password");
+		assertThat(log).endsWith("net.markwalder.tomcat.PasswordCheck.test Incorrect password.");
 	}
 
 	// helper methods ----------------------------------------------------------

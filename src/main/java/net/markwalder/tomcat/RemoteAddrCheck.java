@@ -60,14 +60,13 @@ class RemoteAddrCheck implements Predicate<Request> {
 		// get remote address from request
 		String remoteAddr = request.getRemoteAddr();
 		if (remoteAddr == null) {
-			log.warn("No remote address found in request");
+			log.warn("No remote address found in request.");
 			return false;
 		}
 
 		// TODO: support X-Forwarded-For header
 		// see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-For
 
-		// TODO: support simplified IP ranges
 		boolean result = IpFilter.matches(remoteAddr, ipFilter);
 		if (!result) {
 			log.warn("Remote address '" + remoteAddr + "' does not match IP filter.");
