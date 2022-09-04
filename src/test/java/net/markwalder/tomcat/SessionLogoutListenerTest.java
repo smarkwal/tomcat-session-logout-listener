@@ -86,6 +86,7 @@ class SessionLogoutListenerTest {
 		// mock
 		Mockito.doReturn("/session-logout-listener").when(request).getRequestURI();
 		Mockito.doReturn("").when(request).getContextPath();
+		Mockito.doReturn("127.0.0.1").when(request).getRemoteAddr();
 		Mockito.doReturn(new String[] { "alice", "bob" }).when(request).getParameterValues("username");
 		Mockito.doReturn(true).when(log).isDebugEnabled();
 		Mockito.doReturn(context).when(request).getContext();
@@ -141,6 +142,7 @@ class SessionLogoutListenerTest {
 		// mock
 		Mockito.doReturn("/session-logout-listener").when(request).getRequestURI();
 		Mockito.doReturn("").when(request).getContextPath();
+		Mockito.doReturn("127.0.0.1").when(request).getRemoteAddr();
 		Mockito.doReturn(null).when(request).getParameterValues("username");
 		Mockito.doReturn(writer).when(response).getWriter();
 

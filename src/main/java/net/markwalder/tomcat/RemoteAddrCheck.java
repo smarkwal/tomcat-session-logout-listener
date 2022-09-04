@@ -25,17 +25,56 @@
 package net.markwalder.tomcat;
 
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 import org.apache.catalina.connector.Request;
+import org.apache.juli.logging.Log;
+import org.apache.juli.logging.LogFactory;
 
 /**
- * Checks if a given request is authenticated and authorized to access the
- * session logout listener endpoint.
+ * Checks if a given request has been sent from an allowed remote address.
  */
-public class AccessCheck implements Predicate<Request> {
+class RemoteAddrCheck implements Predicate<Request> {
+
+	private final Supplier<String> ipFilterProvider;
+	private final Log log;
+
+	RemoteAddrCheck(Supplier<String> ipFilterProvider) {
+		this(ipFilterProvider, LogFactory.getLog(RemoteAddrCheck.class));
+	}
+
+	// visible for testing
+	RemoteAddrCheck(Supplier<String> ipFilterProvider, Log log) {
+		this.ipFilterProvider = ipFilterProvider;
+		this.log = log;
+	}
 
 	@Override
 	public boolean test(Request request) {
-		// TODO: implement IP-address check, password check, or another type of access check
+
+		// check if IP filter has been configured
+		String ipFilter = ipFilterProvider.get();
+		if (ipFilter == null) {
+			return true;
+		}
+
+		// get remote address from request
+		String remoteAddr = request.getRemoteAddr();
+		if (remoteAddr == null) {
+			log.warn("No remote address found in request");
+			return false;
+		}
+
+		// TODO: support X-Forwarded-For header
+		// see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-For
+
+		// TODO: support simplified IP ranges
+		boolean result = IpFilter.matches(remoteAddr, ipFilter);
+		if (!result) {
+			log.warn("Remote address '" + remoteAddr + "' does not match IP filter.");
+			return false;
+		}
+
+		// request is accepted
 		return true;
 	}
 

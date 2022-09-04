@@ -46,8 +46,11 @@ public class SessionLogoutListener extends ValveBase {
 
 	// TODO: inject as dependencies
 	private final Predicate<Request> interceptor = new RequestInterceptor();
-	private final Predicate<Request> accessCheck = new AccessCheck();
+	private final Predicate<Request> accessCheck = (new RemoteAddrCheck(this::getIpFilter)).and(new PasswordCheck(this::getPassword));
 	private final Function<Request, Set<String>> requestParser = new RequestParser();
+
+	private String ipFilter = "127.0.0.1";
+	private String password = null;
 
 	public SessionLogoutListener() {
 		this(LogFactory.getLog(SessionLogoutListener.class));
@@ -56,6 +59,22 @@ public class SessionLogoutListener extends ValveBase {
 	// visible for testing
 	SessionLogoutListener(Log log) {
 		this.log = log;
+	}
+
+	public String getIpFilter() {
+		return ipFilter;
+	}
+
+	public void setIpFilter(String ipFilter) {
+		this.ipFilter = ipFilter;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	@Override

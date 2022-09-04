@@ -72,6 +72,9 @@ public abstract class AbstractTomcatIntegrationTest {
 	 */
 	private static final String JAR_FILE = System.getProperty("project.archiveFilePath", "unknown.jar");
 
+	// configured password for valve (see context.xml)
+	private static final String PASSWORD = "my-secret-123!";
+
 	private static final String SESSION_COOKIE = "JSESSIONID";
 	private static final String CONTENT_TYPE_PLAIN = "text/plain;charset=UTF-8";
 	private static final String CONTENT_TYPE_HTML = "text/html;charset=UTF-8";
@@ -215,7 +218,7 @@ public abstract class AbstractTomcatIntegrationTest {
 	void get_session_logout_listener_single_user() throws IOException {
 
 		// prepare
-		HttpUriRequest request = get("/session-logout-listener?username=userX");
+		HttpUriRequest request = get("/session-logout-listener?username=userX&password=" + PASSWORD);
 
 		// test
 		try (CloseableHttpResponse response = client.execute(request)) {
@@ -236,7 +239,7 @@ public abstract class AbstractTomcatIntegrationTest {
 	void get_session_logout_listener_multiple_users() throws IOException {
 
 		// prepare
-		HttpUriRequest request = get("/session-logout-listener?username=userX&username=userY");
+		HttpUriRequest request = get("/session-logout-listener?username=userX&username=userY&password=" + PASSWORD);
 
 		// test
 		try (CloseableHttpResponse response = client.execute(request)) {
@@ -257,7 +260,7 @@ public abstract class AbstractTomcatIntegrationTest {
 	void post_session_logout_listener_single_user() throws IOException {
 
 		// prepare
-		HttpUriRequest request = post("/session-logout-listener", param("username", "userX"));
+		HttpUriRequest request = post("/session-logout-listener", param("username", "userX"), param("password", PASSWORD));
 
 		// test
 		try (CloseableHttpResponse response = client.execute(request)) {
@@ -278,7 +281,7 @@ public abstract class AbstractTomcatIntegrationTest {
 	void post_session_logout_listener_multiple_users() throws IOException {
 
 		// prepare
-		HttpUriRequest request = post("/session-logout-listener", param("username", "userX"), param("username", "userY"));
+		HttpUriRequest request = post("/session-logout-listener", param("username", "userX"), param("username", "userY"), param("password", PASSWORD));
 
 		// test
 		try (CloseableHttpResponse response = client.execute(request)) {
@@ -303,7 +306,7 @@ public abstract class AbstractTomcatIntegrationTest {
 		String sessionId2 = login("user2", "password2");
 
 		// prepare
-		HttpUriRequest request = post("/session-logout-listener", param("username", "user1"), param("username", "user2"));
+		HttpUriRequest request = post("/session-logout-listener", param("username", "user1"), param("username", "user2"), param("password", PASSWORD));
 
 		// test
 		try (CloseableHttpResponse response = client.execute(request)) {
@@ -321,6 +324,48 @@ public abstract class AbstractTomcatIntegrationTest {
 				LOGGER_NAME + ".logoutUsers session: id='" + SessionLogoutListener.truncateSessionId(sessionId1) + "...', principal='user1'\n",
 				LOGGER_NAME + ".logoutUsers session: id='" + SessionLogoutListener.truncateSessionId(sessionId2) + "...', principal='user2'\n"
 		);
+	}
+
+	@Test
+	@DisplayName("POST /session-logout-listener (4 - no password)")
+	void post_session_logout_listener_no_password() throws IOException {
+
+		// prepare
+		HttpUriRequest request = post("/session-logout-listener", param("username", "userX"));
+
+		// test
+		try (CloseableHttpResponse response = client.execute(request)) {
+
+			// assert
+			assertForbidden(response);
+			assertContentType(response, CONTENT_TYPE_PLAIN);
+			assertBody(response, "Forbidden");
+		}
+
+		// check Tomcat log output
+		String log = container.getLog().trim();
+		assertThat(log).endsWith("net.markwalder.tomcat.PasswordCheck.test No password found in request");
+	}
+
+	@Test
+	@DisplayName("POST /session-logout-listener (5 - wrong password)")
+	void post_session_logout_listener_wrong_password() throws IOException {
+
+		// prepare
+		HttpUriRequest request = post("/session-logout-listener", param("username", "userX"), param("password", "wrong-password"));
+
+		// test
+		try (CloseableHttpResponse response = client.execute(request)) {
+
+			// assert
+			assertForbidden(response);
+			assertContentType(response, CONTENT_TYPE_PLAIN);
+			assertBody(response, "Forbidden");
+		}
+
+		// check Tomcat log output
+		String log = container.getLog().trim();
+		assertThat(log).endsWith("net.markwalder.tomcat.PasswordCheck.test Incorrect password");
 	}
 
 	// helper methods ----------------------------------------------------------
@@ -371,6 +416,11 @@ public abstract class AbstractTomcatIntegrationTest {
 	private static void assertOK(HttpResponse response) {
 		int statusCode = response.getStatusLine().getStatusCode();
 		assertEquals(200, statusCode);
+	}
+
+	private void assertForbidden(CloseableHttpResponse response) {
+		int statusCode = response.getStatusLine().getStatusCode();
+		assertEquals(403, statusCode);
 	}
 
 	private static void assertContentType(HttpResponse response, String expectedContentType) {

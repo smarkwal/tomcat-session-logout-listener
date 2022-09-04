@@ -75,13 +75,36 @@ Add the following line to `$TOMCAT_HOME/conf/server.xml` or `$TOMCAT_HOME/conf/c
 <Valve className="net.markwalder.tomcat.SessionLogoutListener"/>
 ```
 
+The valve supports the following configuration attributes:
+
+| Attribute  | Default value | Description                                                                                                                                    |
+|------------|---------------|------------------------------------------------------------------------------------------------------------------------------------------------|
+| `ipFilter` | `127.0.0.1`   | Comma-separated list of client IP addresses and subnets that are allowed to call the web hook. The special value `*` matches all IP addresses. |
+| `password` | (not set)     | Password required to call the web hook. Must be submitted as request parameter `parameter`.                                                    |
+
+Example configuration:
+
+```xml
+<Valve className="net.markwalder.tomcat.SessionLogoutListener" 
+       ipFilter="127.0.0.1,10.0.0.0/24" 
+       password="my-secret-123!"
+/>
+```
+
+Typical IP subnets for local and private address ranges:
+
+* `127.0.0.0/8`
+* `10.0.0.0/8`
+* `172.16.0.0/12`
+* `192.168.0.0/16`
+
 ### Logging
 
 Add the following lines to `$TOMCAT_HOME/conf/logging.properties`:
 
 ```properties
 # Enable debug logging for Tomcat Session Logout Listener
-net.markwalder.tomcat.SessionLogoutListener.level=FINE
+net.markwalder.tomcat.SessionLogoutListener.level = FINE
 ```
 
 When a request is sent to the session logout endpoint, the following log messages are written:
@@ -153,10 +176,10 @@ If Tomcat is running in a cluster, the session logout endpoint must be called on
 
 ### Security considerations
 
-The session logout endpoint is not protected by any authentication or authorization mechanism.
+The session logout endpoint can be protected by client IP address filtering and/or a password.
 If you have additional security requirements, feel free to fork this project and implement your own security mechanism.
 
-To prevent usernames from being logged as part of the URL, it is recommended to use `POST` requests instead of `GET` requests.
+To prevent parameters from being logged as part of the URL, it is recommended to use `POST` requests instead of `GET` requests.
 
 To prevent session IDs from leaking, only the first 8 characters of the session ID are logged.
 But since these sessions have been invalidated, this should not be a security problem anyway.

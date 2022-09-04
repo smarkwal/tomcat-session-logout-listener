@@ -25,21 +25,57 @@
 package net.markwalder.tomcat;
 
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 import org.apache.catalina.connector.Request;
+import org.apache.juli.logging.Log;
+import org.apache.juli.logging.LogFactory;
 
 /**
- * Checks if a given request was sent to the session logout listener endpoint.
+ * Checks if a given request contains the correct password.
  */
-class RequestInterceptor implements Predicate<Request> {
+class PasswordCheck implements Predicate<Request> {
 
-	private static final String ENDPOINT_URI = "/session-logout-listener";
+	private static final String PASSWORD_PARAMETER = "password";
+
+	private final Supplier<String> passwordProvider;
+	private final Log log;
+
+	PasswordCheck(Supplier<String> passwordProvider) {
+		this(passwordProvider, LogFactory.getLog(PasswordCheck.class));
+	}
+
+	// visible for testing
+	PasswordCheck(Supplier<String> passwordProvider, Log log) {
+		this.passwordProvider = passwordProvider;
+		this.log = log;
+	}
 
 	@Override
 	public boolean test(Request request) {
-		String requestURI = request.getRequestURI();
-		String contextPath = request.getContextPath();
-		String endpointURI = contextPath + ENDPOINT_URI;
-		return requestURI.endsWith(endpointURI);
+
+		// check if a password has been configured
+		String password = passwordProvider.get();
+		if (password == null) {
+			return true;
+		}
+
+		// get password from request
+		String requestPassword = request.getParameter(PASSWORD_PARAMETER);
+		if (requestPassword == null) {
+			log.warn("No password found in request");
+			return false;
+		}
+
+		// compare passwords
+		boolean result = password.equals(requestPassword);
+		if (!result) {
+			log.warn("Incorrect password");
+			return false;
+		}
+
+		// request is accepted
+		return true;
 	}
 
 }
+

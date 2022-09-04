@@ -34,7 +34,7 @@ import org.apache.catalina.connector.Request;
 /**
  * Extracts list of usernames from a given request.
  */
-public class RequestParser implements Function<Request, Set<String>> {
+class RequestParser implements Function<Request, Set<String>> {
 
 	private static final String USERNAME_PARAMETER = "username";
 
