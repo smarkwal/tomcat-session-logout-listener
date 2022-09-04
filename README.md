@@ -91,13 +91,13 @@ You can use any HTTP client like `curl` or `wget`, or third-party HTTP or REST c
 
 Example `GET` request:
 
-```http request
+```http
 GET /session-logout-listener?username=alice HTTP/1.1
 ```
 
 Example `POST` request:
 
-```http request
+```http
 POST /session-logout-listener HTTP/1.1
 Content-Type: application/x-www-form-urlencoded
 Content-Length: 14
@@ -111,13 +111,13 @@ It is possible to log out multiple users at once by specifying the parameter `us
 
 Example `GET` request:
 
-```http request
+```http
 GET /session-logout-listener?username=alice&username=bob HTTP/1.1
 ```
 
 Example `POST` request:
 
-```http request
+```http
 POST /session-logout-listener HTTP/1.1
 Content-Type: application/x-www-form-urlencoded
 Content-Length: 27
@@ -129,7 +129,7 @@ Note that if your web application is deployed in a context path other than `/`, 
 
 The session logout endpoint will always return an HTTP response with status code 200 (OK), content type "text/plain", character set "UTF-8", and the text "OK" as body:
 
-```http response
+```http
 HTTP/1.1 200 OK
 Content-Type: text/plain;charset=UTF-8
 Content-Length: 2
