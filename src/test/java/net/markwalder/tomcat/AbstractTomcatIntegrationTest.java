@@ -302,8 +302,12 @@ public abstract class AbstractTomcatIntegrationTest {
 	void post_session_logout_listener_active_sessions() throws IOException {
 
 		// prepare: login user 1 and 2
-		String sessionId1 = login("user1", "password1");
-		String sessionId2 = login("user2", "password2");
+		List<Cookie> cookies1 = login("user1", "password1");
+		String sessionId1 = getSessionId(cookies1);
+		assertNotNull(sessionId1);
+		List<Cookie> cookies2 = login("user2", "password2");
+		String sessionId2 = getSessionId(cookies2);
+		assertNotNull(sessionId2);
 
 		// prepare
 		HttpUriRequest request = post("/session-logout-listener", param("username", "user1"), param("username", "user2"), param("password", PASSWORD));
@@ -324,6 +328,11 @@ public abstract class AbstractTomcatIntegrationTest {
 				LOGGER_NAME + ".logoutUsers session: id='" + SessionLogoutListener.truncateSessionId(sessionId1) + "...', principal='user1'\n",
 				LOGGER_NAME + ".logoutUsers session: id='" + SessionLogoutListener.truncateSessionId(sessionId2) + "...', principal='user2'\n"
 		);
+
+		// check that sessions have been invalidated
+		assertNoAccess(cookies1);
+		assertNoAccess(cookies2);
+
 	}
 
 	@Test
@@ -382,7 +391,7 @@ public abstract class AbstractTomcatIntegrationTest {
 		return request;
 	}
 
-	private String login(String username, String password) throws IOException {
+	private List<Cookie> login(String username, String password) throws IOException {
 
 		// GET /secure/
 		HttpUriRequest request = get("/secure/");
@@ -403,10 +412,37 @@ public abstract class AbstractTomcatIntegrationTest {
 		String sessionId = getSessionId(cookieStore);
 		assertNotNull(sessionId);
 
+		// remember cookies
+		List<Cookie> cookies = cookieStore.getCookies();
+
 		// clear cookies
 		cookieStore.clear();
 
-		return sessionId;
+		return cookies;
+	}
+
+	private void assertNoAccess(List<Cookie> cookies) throws IOException {
+
+		// clear old cookies
+		cookieStore.clear();
+
+		// add new cookies
+		for (Cookie cookie : cookies) {
+			cookieStore.addCookie(cookie);
+		}
+
+		// prepare
+		HttpUriRequest request = get("/secure/");
+
+		// test
+		try (CloseableHttpResponse response = client.execute(request)) {
+
+			// assert: access is denied (login page is shown)
+			assertOK(response);
+			assertContentType(response, CONTENT_TYPE_HTML);
+			assertTrue(response.containsHeader(LOGIN_PAGE_HEADER));
+		}
+
 	}
 
 	private static NameValuePair param(String name, String value) {
@@ -431,6 +467,10 @@ public abstract class AbstractTomcatIntegrationTest {
 
 	private static String getSessionId(CookieStore cookieStore) {
 		List<Cookie> cookies = cookieStore.getCookies();
+		return getSessionId(cookies);
+	}
+
+	private static String getSessionId(List<Cookie> cookies) {
 		for (Cookie cookie : cookies) {
 			if (cookie.getName().equals(SESSION_COOKIE)) {
 				return cookie.getValue();
