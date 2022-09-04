@@ -1,5 +1,16 @@
 # Tomcat Session Logout Listener
 
+[![Release](https://img.shields.io/github/v/release/smarkwal/tomcat-session-logout-listener?label=Latest)](https://github.com/smarkwal/tomcat-session-logout-listener/releases/latest)
+[![License](https://img.shields.io/github/license/smarkwal/tomcat-session-logout-listener?label=License)](https://github.com/smarkwal/tomcat-session-logout-listener/blob/main/LICENSE)
+[![Build](https://github.com/smarkwal/tomcat-session-logout-listener/actions/workflows/build.yml/badge.svg)](https://github.com/smarkwal/tomcat-session-logout-listener/actions/workflows/build.yml)
+[![Issues](https://img.shields.io/github/issues/smarkwal/tomcat-session-logout-listener?label=Issues)](https://github.com/smarkwal/tomcat-session-logout-listener/issues)
+
+<!--
+[![Tests](https://img.shields.io/sonar/tests/smarkwal_tomcat-session-logout-listener/main?label=Tests&server=https%3A%2F%2Fsonarcloud.io)](https://sonarcloud.io/component_measures?id=smarkwal_tomcat-session-logout-listener&metric=test_success_density&selected=smarkwal_tomcat-session-logout-listener%3Asrc%2Ftest%2Fjava%2Forg%2Fsession-logout-listener)
+[![Coverage](https://img.shields.io/sonar/coverage/smarkwal_tomcat-session-logout-listener/main?label=Coverage&server=https%3A%2F%2Fsonarcloud.io)](https://sonarcloud.io/component_measures?id=smarkwal_tomcat-session-logout-listener&metric=coverage&view=list)
+[![Quality](https://img.shields.io/sonar/quality_gate/smarkwal_tomcat-session-logout-listener/main?label=Quality&server=https%3A%2F%2Fsonarcloud.io)](https://sonarcloud.io/dashboard?id=smarkwal_tomcat-session-logout-listener)
+-->
+
 Tomcat valve for remote session invalidation.
 
 ### Situation
