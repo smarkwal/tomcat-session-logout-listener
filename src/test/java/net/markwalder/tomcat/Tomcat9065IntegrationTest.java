@@ -29,7 +29,7 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 @Testcontainers
-@DisplayName("Tomcat 9.0.65")
+@DisplayName("Tomcat 9.0.65 on Java 17")
 public class Tomcat9065IntegrationTest extends AbstractTomcatIntegrationTest {
 
 	@Container
