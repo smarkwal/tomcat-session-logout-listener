@@ -65,6 +65,7 @@ public class SessionLogoutListener extends ValveBase {
 		return ipFilter;
 	}
 
+	@SuppressWarnings("unused") // used by Tomcat
 	public void setIpFilter(String ipFilter) {
 		this.ipFilter = ipFilter;
 	}
@@ -73,6 +74,7 @@ public class SessionLogoutListener extends ValveBase {
 		return password;
 	}
 
+	@SuppressWarnings("unused") // used by Tomcat
 	public void setPassword(String password) {
 		this.password = password;
 	}
