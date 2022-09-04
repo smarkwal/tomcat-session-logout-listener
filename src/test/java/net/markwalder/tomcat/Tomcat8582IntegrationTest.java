@@ -33,7 +33,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 public class Tomcat8582IntegrationTest extends AbstractTomcatIntegrationTest {
 
 	@Container
-	private static final TomcatContainer container = createTomcatContainer("8.5.82");
+	private static final TomcatContainer container = createTomcatContainer("8.5.82", "11");
 
 	public Tomcat8582IntegrationTest() {
 		super(container);

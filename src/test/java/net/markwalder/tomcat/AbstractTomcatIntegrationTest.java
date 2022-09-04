@@ -84,8 +84,8 @@ public abstract class AbstractTomcatIntegrationTest {
 	@TempDir
 	static File temporaryFolder;
 
-	static TomcatContainer createTomcatContainer(String tomcatVersion) {
-		System.out.println("Prepare Tomcat " + tomcatVersion + " ...");
+	static TomcatContainer createTomcatContainer(String tomcatVersion, String javaVersion) {
+		System.out.println("Prepare Tomcat " + tomcatVersion + " on Java " + javaVersion + " ...");
 
 		// prepare web application in temporary folder
 		// (by default, the Tomcat container does not contain any web applications)
@@ -106,7 +106,7 @@ public abstract class AbstractTomcatIntegrationTest {
 		assertTrue(jarFile.exists(), "JAR file not found: " + jarFile.getAbsolutePath() + ". Please make sure that the JAR file has been built before running any tests.");
 
 		// configure container
-		return new TomcatContainer(tomcatVersion)
+		return new TomcatContainer(tomcatVersion, javaVersion)
 				.withServerXML("tomcat/conf/server.xml")
 				.withContextXML("tomcat/conf/context.xml")
 				.withTomcatUsersXML("tomcat/conf/tomcat-users.xml")

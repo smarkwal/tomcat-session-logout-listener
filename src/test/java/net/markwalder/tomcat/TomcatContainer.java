@@ -43,8 +43,8 @@ public class TomcatContainer extends GenericContainer<TomcatContainer> {
 
 	private final StringBuilder log = new StringBuilder();
 
-	public TomcatContainer(String tomcatVersion) {
-		super(getDockerImageName(tomcatVersion));
+	public TomcatContainer(String tomcatVersion, String javaVersion) {
+		super(getDockerImageName(tomcatVersion, javaVersion));
 		this.tomcatVersion = tomcatVersion;
 
 		// make port 8080 accessible
@@ -52,8 +52,8 @@ public class TomcatContainer extends GenericContainer<TomcatContainer> {
 		addExposedPort(8080);
 	}
 
-	private static DockerImageName getDockerImageName(String tomcatVersion) {
-		return DockerImageName.parse("tomcat:" + tomcatVersion + "-jdk8");
+	private static DockerImageName getDockerImageName(String tomcatVersion, String javaVersion) {
+		return DockerImageName.parse("tomcat:" + tomcatVersion + "-jdk" + javaVersion);
 	}
 
 	public String getTomcatVersion() {
