@@ -75,11 +75,7 @@ class SessionLogoutListenerTest {
 	Valve next;
 
 	@BeforeEach
-	void setUp() throws IOException {
-		Mockito.lenient().doReturn(writer).when(response).getWriter();
-		Mockito.lenient().doReturn(context).when(request).getContext();
-		Mockito.lenient().doReturn(manager).when(context).getManager();
-
+	void setUp() {
 		listener = new SessionLogoutListener(log);
 		listener.setNext(next);
 	}
@@ -87,15 +83,19 @@ class SessionLogoutListenerTest {
 	@Test
 	void invoke() throws ServletException, IOException {
 
-		// prepare
+		// mock
 		Mockito.doReturn("/session-logout-listener").when(request).getRequestURI();
+		Mockito.doReturn("").when(request).getContextPath();
 		Mockito.doReturn(new String[] { "alice", "bob" }).when(request).getParameterValues("username");
 		Mockito.doReturn(true).when(log).isDebugEnabled();
+		Mockito.doReturn(context).when(request).getContext();
+		Mockito.doReturn(manager).when(context).getManager();
 		Mockito.doReturn(new Session[] { session }).when(manager).findSessions();
 		Mockito.doReturn(principal).when(session).getPrincipal();
 		Mockito.doReturn(true).when(session).isValid();
 		Mockito.doReturn("12345678901234567890").when(session).getId();
 		Mockito.doReturn("alice").when(principal).getName();
+		Mockito.doReturn(writer).when(response).getWriter();
 
 		// test
 		listener.invoke(request, response);
@@ -123,8 +123,9 @@ class SessionLogoutListenerTest {
 	@Test
 	void invoke_webapp_uri() throws ServletException, IOException {
 
-		// prepare
-		Mockito.when(request.getRequestURI()).thenReturn("/index.jsp");
+		// mock
+		Mockito.doReturn("/index.jsp").when(request).getRequestURI();
+		Mockito.doReturn("").when(request).getContextPath();
 
 		// test
 		listener.invoke(request, response);
@@ -137,9 +138,11 @@ class SessionLogoutListenerTest {
 	@Test
 	void invoke_endpoint_uri_without_usernames() throws ServletException, IOException {
 
-		// prepare
+		// mock
 		Mockito.doReturn("/session-logout-listener").when(request).getRequestURI();
+		Mockito.doReturn("").when(request).getContextPath();
 		Mockito.doReturn(null).when(request).getParameterValues("username");
+		Mockito.doReturn(writer).when(response).getWriter();
 
 		// test
 		listener.invoke(request, response);

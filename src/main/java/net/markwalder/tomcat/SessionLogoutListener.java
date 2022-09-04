@@ -25,10 +25,11 @@
 package net.markwalder.tomcat;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.security.Principal;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Set;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import javax.servlet.ServletException;
 import org.apache.catalina.Context;
 import org.apache.catalina.Manager;
@@ -41,10 +42,12 @@ import org.apache.juli.logging.LogFactory;
 
 public class SessionLogoutListener extends ValveBase {
 
-	private static final String ENDPOINT_URI = "/session-logout-listener";
-	private static final String USERNAME_PARAMETER = "username";
-
 	private final Log log;
+
+	// TODO: inject as dependencies
+	private final Predicate<Request> interceptor = new RequestInterceptor();
+	private final Predicate<Request> accessCheck = new AccessCheck();
+	private final Function<Request, Set<String>> requestParser = new RequestParser();
 
 	public SessionLogoutListener() {
 		this(LogFactory.getLog(SessionLogoutListener.class));
@@ -58,21 +61,10 @@ public class SessionLogoutListener extends ValveBase {
 	@Override
 	public void invoke(Request request, Response response) throws IOException, ServletException {
 
-		// check if request is sent to session logout endpoint URI
-		String requestURI = request.getRequestURI();
-		if (requestURI.endsWith(ENDPOINT_URI)) {
+		// check if request is sent to session logout endpoint
+		if (interceptor.test(request)) {
 
-			// check if parameter "username" is present
-			String[] usernames = request.getParameterValues(USERNAME_PARAMETER);
-			if (usernames != null && usernames.length > 0) {
-
-				// logout all users with the given usernames
-				logoutUsers(request, usernames);
-
-			}
-
-			// return OK message and stop request processing
-			sendResponse(response);
+			handleRequest(request, response);
 			return;
 		}
 
@@ -81,18 +73,35 @@ public class SessionLogoutListener extends ValveBase {
 
 	}
 
-	private void logoutUsers(Request request, String[] usernames) {
+	private void handleRequest(Request request, Response response) throws IOException {
+
+		// check if request is authenticated and authorized
+		if (!accessCheck.test(request)) {
+			sendResponse(403, "Forbidden", response);
+			return;
+		}
+
+		// get usernames from request
+		Set<String> usernames = requestParser.apply(request);
+		if (!usernames.isEmpty()) {
+
+			// logout all users with the given usernames
+			Context context = request.getContext();
+			logoutUsers(context, usernames);
+
+		}
+
+		// return OK message and stop request processing
+		sendResponse(200, "OK", response);
+	}
+
+	private void logoutUsers(Context context, Set<String> usernames) {
 
 		if (log.isDebugEnabled()) {
 			log.debug("usernames: '" + String.join("', '", usernames) + "'");
 		}
 
-		// add all usernames to a set
-		Set<String> usernamesSet = new HashSet<>();
-		Collections.addAll(usernamesSet, usernames);
-
 		// get all Tomcat sessions for the current webapp context
-		Context context = request.getContext();
 		Session[] sessions = getAllSessions(context);
 
 		// for every session ...
@@ -107,7 +116,7 @@ public class SessionLogoutListener extends ValveBase {
 
 					// if principal name matches one of the usernames ...
 					String principalName = principal.getName();
-					if (usernamesSet.contains(principalName)) {
+					if (usernames.contains(principalName)) {
 
 						// remember session ID
 						String sessionId = session.getId();
@@ -135,11 +144,12 @@ public class SessionLogoutListener extends ValveBase {
 		return sessionId.substring(0, 8);
 	}
 
-	private static void sendResponse(Response response) throws IOException {
-		response.setStatus(200);
+	private static void sendResponse(int status, String message, Response response) throws IOException {
+		response.setStatus(status);
 		response.setContentType("text/plain");
 		response.setCharacterEncoding("UTF-8");
-		response.getWriter().print("OK");
+		PrintWriter writer = response.getWriter();
+		writer.print(message);
 	}
 
 }
