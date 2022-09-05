@@ -166,7 +166,6 @@ public class TomcatContainer extends GenericContainer<TomcatContainer> {
 
 	public String getLog() {
 
-		// TODO: find a better way to make sure that Docker log output has been flushed
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {

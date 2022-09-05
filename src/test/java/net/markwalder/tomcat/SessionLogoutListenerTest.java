@@ -92,8 +92,8 @@ class SessionLogoutListenerTest {
 		Mockito.doReturn(context).when(request).getContext();
 		Mockito.doReturn(manager).when(context).getManager();
 		Mockito.doReturn(new Session[] { session }).when(manager).findSessions();
-		Mockito.doReturn(principal).when(session).getPrincipal();
 		Mockito.doReturn(true).when(session).isValid();
+		Mockito.doReturn(principal).when(session).getPrincipal();
 		Mockito.doReturn("12345678901234567890").when(session).getId();
 		Mockito.doReturn("alice").when(principal).getName();
 		Mockito.doReturn(writer).when(response).getWriter();
@@ -107,9 +107,9 @@ class SessionLogoutListenerTest {
 		Mockito.verify(request).getContext();
 		Mockito.verify(context).getManager();
 		Mockito.verify(manager).findSessions();
+		Mockito.verify(session).isValid();
 		Mockito.verify(session).getPrincipal();
 		Mockito.verify(principal).getName();
-		Mockito.verify(session).isValid();
 		Mockito.verify(session).getId();
 		Mockito.verify(session).expire();
 		Mockito.verify(log).debug("session: id='12345678...', principal='alice'");
@@ -150,6 +150,160 @@ class SessionLogoutListenerTest {
 		listener.invoke(request, response);
 
 		// verify
+		Mockito.verify(response).setStatus(200);
+		Mockito.verify(response).setContentType("text/plain");
+		Mockito.verify(response).setCharacterEncoding("UTF-8");
+		Mockito.verify(response).getWriter();
+		Mockito.verify(writer).print("OK");
+		Mockito.verifyNoMoreInteractions(request, response, writer, context, manager, session, principal, log, next);
+	}
+
+	@Test
+	void invoke_endpoint_uri_with_wrong_password() throws ServletException, IOException {
+
+		// mock
+		Mockito.doReturn("/session-logout-listener").when(request).getRequestURI();
+		Mockito.doReturn("").when(request).getContextPath();
+		Mockito.doReturn("127.0.0.1").when(request).getRemoteAddr();
+		Mockito.doReturn("wrong-password").when(request).getParameter("password");
+		Mockito.doReturn(writer).when(response).getWriter();
+
+		// prepare
+		listener.setPassword("secret-password123!");
+
+		// test
+		listener.invoke(request, response);
+
+		// verify
+		Mockito.verify(response).setStatus(403);
+		Mockito.verify(response).setContentType("text/plain");
+		Mockito.verify(response).setCharacterEncoding("UTF-8");
+		Mockito.verify(response).getWriter();
+		Mockito.verify(writer).print("Forbidden");
+		Mockito.verifyNoMoreInteractions(request, response, writer, context, manager, session, principal, log, next);
+	}
+
+	@Test
+	void invoke_endpoint_uri_with_unknown_client() throws ServletException, IOException {
+
+		// mock
+		Mockito.doReturn("/session-logout-listener").when(request).getRequestURI();
+		Mockito.doReturn("").when(request).getContextPath();
+		Mockito.doReturn("123.45.67.89").when(request).getRemoteAddr();
+		Mockito.doReturn(writer).when(response).getWriter();
+
+		// prepare
+		listener.setIpFilter("10.0.0.0/8");
+
+		// test
+		listener.invoke(request, response);
+
+		// verify
+		Mockito.verify(response).setStatus(403);
+		Mockito.verify(response).setContentType("text/plain");
+		Mockito.verify(response).setCharacterEncoding("UTF-8");
+		Mockito.verify(response).getWriter();
+		Mockito.verify(writer).print("Forbidden");
+		Mockito.verifyNoMoreInteractions(request, response, writer, context, manager, session, principal, log, next);
+	}
+
+	@Test
+	void invoke_endpoint_uri_other_users() throws ServletException, IOException {
+
+		// mock
+		Mockito.doReturn("/session-logout-listener").when(request).getRequestURI();
+		Mockito.doReturn("").when(request).getContextPath();
+		Mockito.doReturn("127.0.0.1").when(request).getRemoteAddr();
+		Mockito.doReturn(new String[] { "alice", "bob" }).when(request).getParameterValues("username");
+		Mockito.doReturn(true).when(log).isDebugEnabled();
+		Mockito.doReturn(context).when(request).getContext();
+		Mockito.doReturn(manager).when(context).getManager();
+		Mockito.doReturn(new Session[] { session }).when(manager).findSessions();
+		Mockito.doReturn(true).when(session).isValid();
+		Mockito.doReturn(principal).when(session).getPrincipal();
+		Mockito.doReturn("peter").when(principal).getName();
+		Mockito.doReturn(writer).when(response).getWriter();
+
+		// test
+		listener.invoke(request, response);
+
+		// verify
+		Mockito.verify(log).isDebugEnabled();
+		Mockito.verify(log).debug("usernames: 'alice', 'bob'");
+		Mockito.verify(request).getContext();
+		Mockito.verify(context).getManager();
+		Mockito.verify(manager).findSessions();
+		Mockito.verify(session).isValid();
+		Mockito.verify(session).getPrincipal();
+		Mockito.verify(principal).getName();
+		Mockito.verify(response).setStatus(200);
+		Mockito.verify(response).setContentType("text/plain");
+		Mockito.verify(response).setCharacterEncoding("UTF-8");
+		Mockito.verify(response).getWriter();
+		Mockito.verify(writer).print("OK");
+		Mockito.verifyNoMoreInteractions(request, response, writer, context, manager, session, principal, log, next);
+	}
+
+	@Test
+	void invoke_endpoint_uri_unauthenticated_session() throws ServletException, IOException {
+
+		// mock
+		Mockito.doReturn("/session-logout-listener").when(request).getRequestURI();
+		Mockito.doReturn("").when(request).getContextPath();
+		Mockito.doReturn("127.0.0.1").when(request).getRemoteAddr();
+		Mockito.doReturn(new String[] { "alice", "bob" }).when(request).getParameterValues("username");
+		Mockito.doReturn(true).when(log).isDebugEnabled();
+		Mockito.doReturn(context).when(request).getContext();
+		Mockito.doReturn(manager).when(context).getManager();
+		Mockito.doReturn(new Session[] { session }).when(manager).findSessions();
+		Mockito.doReturn(true).when(session).isValid();
+		Mockito.doReturn(null).when(session).getPrincipal();
+		Mockito.doReturn(writer).when(response).getWriter();
+
+		// test
+		listener.invoke(request, response);
+
+		// verify
+		Mockito.verify(log).isDebugEnabled();
+		Mockito.verify(log).debug("usernames: 'alice', 'bob'");
+		Mockito.verify(request).getContext();
+		Mockito.verify(context).getManager();
+		Mockito.verify(manager).findSessions();
+		Mockito.verify(session).isValid();
+		Mockito.verify(session).getPrincipal();
+		Mockito.verify(response).setStatus(200);
+		Mockito.verify(response).setContentType("text/plain");
+		Mockito.verify(response).setCharacterEncoding("UTF-8");
+		Mockito.verify(response).getWriter();
+		Mockito.verify(writer).print("OK");
+		Mockito.verifyNoMoreInteractions(request, response, writer, context, manager, session, principal, log, next);
+	}
+
+	@Test
+	void invoke_endpoint_uri_invalid_session() throws ServletException, IOException {
+
+		// mock
+		Mockito.doReturn("/session-logout-listener").when(request).getRequestURI();
+		Mockito.doReturn("").when(request).getContextPath();
+		Mockito.doReturn("127.0.0.1").when(request).getRemoteAddr();
+		Mockito.doReturn(new String[] { "alice", "bob" }).when(request).getParameterValues("username");
+		Mockito.doReturn(true).when(log).isDebugEnabled();
+		Mockito.doReturn(context).when(request).getContext();
+		Mockito.doReturn(manager).when(context).getManager();
+		Mockito.doReturn(new Session[] { session }).when(manager).findSessions();
+		Mockito.doReturn(false).when(session).isValid();
+		Mockito.doReturn(writer).when(response).getWriter();
+
+		// test
+		listener.invoke(request, response);
+
+		// verify
+		Mockito.verify(log).isDebugEnabled();
+		Mockito.verify(log).debug("usernames: 'alice', 'bob'");
+		Mockito.verify(request).getContext();
+		Mockito.verify(context).getManager();
+		Mockito.verify(manager).findSessions();
+		Mockito.verify(session).isValid();
 		Mockito.verify(response).setStatus(200);
 		Mockito.verify(response).setContentType("text/plain");
 		Mockito.verify(response).setCharacterEncoding("UTF-8");

@@ -42,12 +42,10 @@ import org.apache.juli.logging.LogFactory;
 
 public class SessionLogoutListener extends ValveBase {
 
-	private final Log log;
-
-	// TODO: inject as dependencies
 	private final Predicate<Request> interceptor = new RequestInterceptor();
 	private final Predicate<Request> accessCheck = (new RemoteAddrCheck(this::getIpFilter)).and(new PasswordCheck(this::getPassword));
 	private final Function<Request, Set<String>> requestParser = new RequestParser();
+	private final Log log;
 
 	private String ipFilter = "127.0.0.1";
 	private String password = null;
@@ -128,31 +126,34 @@ public class SessionLogoutListener extends ValveBase {
 		// for every session ...
 		for (Session session : sessions) {
 
-			// if the session is still valid ...
-			if (session.isValid()) {
-
-				// if session contains a principal (has been authenticated) ...
-				Principal principal = session.getPrincipal();
-				if (principal != null) {
-
-					// if principal name matches one of the usernames ...
-					String principalName = principal.getName();
-					if (usernames.contains(principalName)) {
-
-						// remember session ID
-						String sessionId = session.getId();
-
-						// logout the session
-						session.expire();
-
-						if (log.isDebugEnabled()) {
-							String truncatedSessionId = truncateSessionId(sessionId); // log only first 8 characters of session ID
-							log.debug("session: id='" + truncatedSessionId + "...', principal='" + principalName + "'");
-						}
-
-					}
-				}
+			// ignore sessions that have already been invalidated
+			if (!session.isValid()) {
+				continue;
 			}
+
+			// ignore sessions for unauthenticated users
+			Principal principal = session.getPrincipal();
+			if (principal == null) {
+				continue;
+			}
+
+			// ignore sessions for other users
+			String principalName = principal.getName();
+			if (!usernames.contains(principalName)) {
+				continue;
+			}
+
+			// remember session ID
+			String sessionId = session.getId();
+
+			// logout the session
+			session.expire();
+
+			if (log.isDebugEnabled()) {
+				String truncatedSessionId = truncateSessionId(sessionId); // log only first 8 characters of session ID
+				log.debug("session: id='" + truncatedSessionId + "...', principal='" + principalName + "'");
+			}
+
 		}
 	}
 

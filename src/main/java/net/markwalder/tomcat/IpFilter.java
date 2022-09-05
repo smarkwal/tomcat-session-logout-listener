@@ -26,9 +26,17 @@ package net.markwalder.tomcat;
 
 class IpFilter {
 
+	private IpFilter() {
+		// utility class
+	}
+
 	static boolean matches(String remoteAddr, String filter) {
-		if (remoteAddr == null) return false;
-		if (filter == null) return false;
+		if (remoteAddr == null) {
+			return false;
+		}
+		if (filter == null) {
+			return false;
+		}
 
 		String[] filters = filter.split(",");
 		for (String address : filters) {
@@ -51,19 +59,32 @@ class IpFilter {
 	}
 
 	static boolean matchesAddress(String remoteAddr, String address) {
-		if (remoteAddr == null) return false;
-		if (address == null) return false;
-		if (address.equals("*")) return true;
+		if (remoteAddr == null) {
+			return false;
+		}
+		if (address == null) {
+			return false;
+		}
+		if (address.equals("*")) {
+			return true;
+		}
 		return remoteAddr.equals(address);
 	}
 
-	// TODO: support IPv6 addresses
 	static boolean matchesRange(String remoteAddr, String range) {
-		if (remoteAddr == null) return false;
-		if (!remoteAddr.matches("\\d+\\.\\d+\\.\\d+\\.\\d+")) return false;
+		if (remoteAddr == null) {
+			return false;
+		}
+		if (!remoteAddr.matches("\\d+\\.\\d+\\.\\d+\\.\\d+")) {
+			return false;
+		}
 
-		if (range == null) return false;
-		if (!range.matches("\\d+\\.\\d+\\.\\d+\\.\\d+/\\d+")) return false;
+		if (range == null) {
+			return false;
+		}
+		if (!range.matches("\\d+\\.\\d+\\.\\d+\\.\\d+/\\d+")) {
+			return false;
+		}
 
 		int pos = range.indexOf('/');
 		String subnet = range.substring(0, pos);
@@ -79,7 +100,9 @@ class IpFilter {
 	}
 
 	static long parseAddress(String address) {
-		if (!address.matches("\\d+\\.\\d+\\.\\d+\\.\\d+")) return Long.MAX_VALUE;
+		if (!address.matches("\\d+\\.\\d+\\.\\d+\\.\\d+")) {
+			throw new IllegalArgumentException("address");
+		}
 		String[] parts = address.split("\\.");
 		long result = 0;
 		for (int i = 0; i < 4; i++) {

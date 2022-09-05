@@ -64,9 +64,6 @@ class RemoteAddrCheck implements Predicate<Request> {
 			return false;
 		}
 
-		// TODO: support X-Forwarded-For header
-		// see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-For
-
 		boolean result = IpFilter.matches(remoteAddr, ipFilter);
 		if (!result) {
 			log.warn("Remote address '" + remoteAddr + "' does not match IP filter.");

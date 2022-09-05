@@ -209,7 +209,6 @@ sonarqube {
         // paths to test sources and test classes
         property("sonar.tests", "${projectDir}/src/test/java")
         property("sonar.java.test.binaries", "${buildDir}/classes/java/test")
-        // TODO: set sonar.java.test.libraries?
 
         // include test results
         property("sonar.junit.reportPaths", "${buildDir}/test-results/test")
