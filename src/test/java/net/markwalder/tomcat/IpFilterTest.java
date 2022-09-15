@@ -24,9 +24,7 @@
 
 package net.markwalder.tomcat;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -181,32 +179,107 @@ class IpFilterTest {
 	}
 
 	@Test
-	void parseAddress() {
+	void matchesAddress_IPv6() {
+		assertTrue(IpFilter.matchesAddress("0123:4567:89ab:cdef:0123:4567:89ab:cdef", "0123:4567:89ab:cdef:0123:4567:89ab:cdef"));
+		assertTrue(IpFilter.matchesAddress("fc00::1", "fc00::1"));
+		assertTrue(IpFilter.matchesAddress("fc00::1", "FC00::1"));
+		assertTrue(IpFilter.matchesAddress("fc00::1", "fc00:0:0:0:0:0:0:1"));
+		assertTrue(IpFilter.matchesAddress("fc00::1", "fc00:0000:0000:0000:0000:0000:0000:0001"));
+		assertTrue(IpFilter.matchesAddress("0:0:0:0:0:0:0:1", "::1")); // localhost
+		assertFalse(IpFilter.matchesAddress("fc00::1", "fc00::2"));
+	}
 
-		// localhost
-		assertEquals(0x7F000001L, IpFilter.parseAddress("127.0.0.1"));
+	@Test
+	void matchesAddress_IPv6_mixed_with_IPv4() {
+		assertFalse(IpFilter.matchesAddress("127.0.0.1", "::1"));
+		assertFalse(IpFilter.matchesAddress("::1", "127.0.0.1"));
+	}
 
-		// start and end of private ranges
-		assertEquals(0x0A000000L, IpFilter.parseAddress("10.0.0.0"));
-		assertEquals(0x0AFFFFFFL, IpFilter.parseAddress("10.255.255.255"));
-		assertEquals(0xAC100000L, IpFilter.parseAddress("172.16.0.0"));
-		assertEquals(0xAC1FFFFFL, IpFilter.parseAddress("172.31.255.255"));
-		assertEquals(0xC0A80000L, IpFilter.parseAddress("192.168.0.0"));
-		assertEquals(0xC0A8FFFFL, IpFilter.parseAddress("192.168.255.255"));
+	@Test
+	void matchesAddress_IPv6_illegal_address() {
+		assertFalse(IpFilter.matchesAddress("1::2::3", "1:2::3"));
+		assertFalse(IpFilter.matchesAddress("1:2::3", "1::2::3"));
+	}
 
-		// min and max address
-		assertEquals(0x00000000L, IpFilter.parseAddress("0.0.0.0"));
-		assertEquals(0xFFFFFFFFL, IpFilter.parseAddress("255.255.255.255"));
+	@Test
+	void matchesRange_IPv6() {
 
-		// arbitrary addresses
-		assertEquals(0x01020304L, IpFilter.parseAddress("1.2.3.4"));
+		assertTrue(IpFilter.matchesRange("::", "::/0"));
+		assertTrue(IpFilter.matchesRange("ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff", "::/0"));
+
+		assertTrue(IpFilter.matchesRange("::", "::/128"));
+		assertFalse(IpFilter.matchesRange("::1", "::/128"));
+
+		assertFalse(IpFilter.matchesRange("::0", "::1/128"));
+		assertTrue(IpFilter.matchesRange("::1", "::1/128"));
+		assertFalse(IpFilter.matchesRange("::2", "::1/128"));
+
+		assertFalse(IpFilter.matchesRange("::fffe:ffff:ffff:ffff", "::ffff:0:0:0/96"));
+		assertTrue(IpFilter.matchesRange("::ffff:0:0:0", "::ffff:0:0:0/96"));
+		assertTrue(IpFilter.matchesRange("::ffff:0:ffff:ffff", "::ffff:0:0:0/96"));
+		assertFalse(IpFilter.matchesRange("::ffff:1:0:0", "::ffff:0:0:0/96"));
+
+		assertFalse(IpFilter.matchesRange("64:ff9a:ffff:ffff:ffff:ffff:ffff:ffff", "64:ff9b::/96"));
+		assertTrue(IpFilter.matchesRange("64:ff9b::", "64:ff9b::/96"));
+		assertTrue(IpFilter.matchesRange("64:ff9b::ffff:ffff", "64:ff9b::/96"));
+		assertFalse(IpFilter.matchesRange("64:ff9b::1:0:0", "64:ff9b::/96"));
+
+		assertFalse(IpFilter.matchesRange("64:ff9b:0:ffff:ffff:ffff:ffff:ffff", "64:ff9b:1::/48"));
+		assertTrue(IpFilter.matchesRange("64:ff9b:1::", "64:ff9b:1::/48"));
+		assertTrue(IpFilter.matchesRange("64:ff9b:1:ffff:ffff:ffff:ffff:ffff", "64:ff9b:1::/48"));
+		assertFalse(IpFilter.matchesRange("64:ff9b:2::0", "64:ff9b:1::/48"));
+
+		assertFalse(IpFilter.matchesRange("ff:ffff:ffff:ffff:ffff:ffff:ffff:ffff", "100::/64"));
+		assertTrue(IpFilter.matchesRange("100::", "100::/64"));
+		assertTrue(IpFilter.matchesRange("100::ffff:ffff:ffff:ffff", "100::/64"));
+		assertFalse(IpFilter.matchesRange("101::", "100::/64"));
+
+		assertFalse(IpFilter.matchesRange("2000:ffff:ffff:ffff:ffff:ffff:ffff:ffff", "2001:0000::/32"));
+		assertTrue(IpFilter.matchesRange("2001::", "2001:0000::/32"));
+		assertTrue(IpFilter.matchesRange("2001::ffff:ffff:ffff:ffff:ffff:ffff", "2001:0000::/32"));
+		assertFalse(IpFilter.matchesRange("2001:1::", "2001:0000::/32"));
+
+		assertFalse(IpFilter.matchesRange("2001:1f:ffff:ffff:ffff:ffff:ffff:ffff", "2001:20::/28"));
+		assertTrue(IpFilter.matchesRange("2001:20::", "2001:20::/28"));
+		assertTrue(IpFilter.matchesRange("2001:2f:ffff:ffff:ffff:ffff:ffff:ffff", "2001:20::/28"));
+		assertFalse(IpFilter.matchesRange("2001:30::", "2001:20::/28"));
+
+		assertFalse(IpFilter.matchesRange("2001:db7:ffff:ffff:ffff:ffff:ffff:ffff", "2001:db8::/32"));
+		assertTrue(IpFilter.matchesRange("2001:db8::", "2001:db8::/32"));
+		assertTrue(IpFilter.matchesRange("2001:db8:ffff:ffff:ffff:ffff:ffff:ffff", "2001:db8::/32"));
+		assertFalse(IpFilter.matchesRange("2001:db9::", "2001:db8::/32"));
+
+		assertFalse(IpFilter.matchesRange("2001:ffff:ffff:ffff:ffff:ffff:ffff:ffff", "2002::/16"));
+		assertTrue(IpFilter.matchesRange("2002::", "2002::/16"));
+		assertTrue(IpFilter.matchesRange("2002:ffff:ffff:ffff:ffff:ffff:ffff:ffff", "2002::/16"));
+		assertFalse(IpFilter.matchesRange("2003::", "2002::/16"));
+
+		assertFalse(IpFilter.matchesRange("fbff:ffff:ffff:ffff:ffff:ffff:ffff:ffff", "fc00::/7"));
+		assertTrue(IpFilter.matchesRange("fc00::", "fc00::/7"));
+		assertTrue(IpFilter.matchesRange("fdff:ffff:ffff:ffff:ffff:ffff:ffff:ffff", "fc00::/7"));
+		assertFalse(IpFilter.matchesRange("fe00::", "fc00::/7"));
+
+		assertFalse(IpFilter.matchesRange("fe7f:ffff:ffff:ffff:ffff:ffff:ffff:ffff", "fe80::/64"));
+		assertTrue(IpFilter.matchesRange("fe80::", "fe80::/64"));
+		assertTrue(IpFilter.matchesRange("fe80::ffff:ffff:ffff:ffff", "fe80::/64"));
+		assertFalse(IpFilter.matchesRange("fe80:0:0:1::", "fe80::/64"));
+
+		assertFalse(IpFilter.matchesRange("feff:ffff:ffff:ffff:ffff:ffff:ffff:ffff", "ff00::/8"));
+		assertTrue(IpFilter.matchesRange("ff00::", "ff00::/8"));
+		assertTrue(IpFilter.matchesRange("ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff", "ff00::/8"));
 
 	}
 
 	@Test
-	void parseAddress_illegal_value() {
-		assertThrows(IllegalArgumentException.class, () -> IpFilter.parseAddress("10.0.0"));
-		assertThrows(IllegalArgumentException.class, () -> IpFilter.parseAddress("127.0.0.0.1"));
+	void matchesRange_IPv6_mixed_with_IPv4() {
+		assertFalse(IpFilter.matchesRange("127.0.0.1", "::1/128"));
+		assertFalse(IpFilter.matchesRange("::1", "127.0.0.1/8"));
+	}
+
+	@Test
+	void matchesRange_IPv6_illegal_address() {
+		assertFalse(IpFilter.matchesRange("1::2::3", "1:2::3/0"));
+		assertFalse(IpFilter.matchesRange("1:2::3", "1::2::3/0"));
 	}
 
 }
