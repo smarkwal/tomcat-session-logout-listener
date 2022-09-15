@@ -86,16 +86,16 @@ Add the following line to `$TOMCAT_HOME/conf/server.xml` or `$TOMCAT_HOME/conf/c
 
 The valve supports the following configuration attributes:
 
-| Attribute  | Default value | Description                                                                                                                                    |
-|------------|---------------|------------------------------------------------------------------------------------------------------------------------------------------------|
-| `ipFilter` | `127.0.0.1`   | Comma-separated list of client IP addresses and subnets that are allowed to call the web hook. The special value `*` matches all IP addresses. |
-| `password` | (not set)     | Password required to call the web hook. Must be submitted as request parameter `parameter`.                                                    |
+| Attribute  | Default value   | Description                                                                                                                                              |
+|------------|-----------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `ipFilter` | `127.0.0.1,::1` | Comma-separated list of client IPv4 or IPv6 addresses and subnets that are allowed to call the web hook. The special value `*` matches all IP addresses. |
+| `password` | (not set)       | Password required to call the web hook. Must be submitted as request parameter `parameter`.                                                              |
 
 Example configuration:
 
 ```xml
 <Valve className="net.markwalder.tomcat.SessionLogoutListener" 
-       ipFilter="127.0.0.1,10.0.0.0/24" 
+       ipFilter="127.0.0.1,10.0.0.0/24,::1,fc00::/7" 
        password="my-secret-123!"
 />
 ```
@@ -106,6 +106,8 @@ Typical IP subnets for local and private address ranges:
 * `10.0.0.0/8`
 * `172.16.0.0/12`
 * `192.168.0.0/16`
+* `fc00::/7`
+* `fe80::/10`
 
 ### Logging
 

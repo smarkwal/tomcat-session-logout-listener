@@ -47,7 +47,7 @@ public class SessionLogoutListener extends ValveBase {
 	private final Function<Request, Set<String>> requestParser = new RequestParser();
 	private final Log log;
 
-	private String ipFilter = "127.0.0.1";
+	private String ipFilter = "127.0.0.1,::1";
 	private String password = null;
 
 	public SessionLogoutListener() {
