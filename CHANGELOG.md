@@ -1,7 +1,8 @@
 # Changelog
 
-## 1.1.1-SNAPSHOT
+## 1.2.0-SNAPSHOT
 
+* Feature: Support IPv6 in IP address filter.
 * See [commits since version 1.1.0](https://github.com/smarkwal/tomcat-session-logout-listener/compare/v1.1.0...main).
 
 ## 1.1.0
