@@ -30,6 +30,11 @@ import java.util.BitSet;
 
 class IpFilter {
 
+	private static final String IPV4_ADDRESS_PATTERN = "\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}";
+	private static final String IPV4_RANGE_PATTERN = IPV4_ADDRESS_PATTERN + "/\\d{1,3}";
+	private static final String IPV6_ADDRESS_PATTERN = "[0-9a-fA-F:]{2,39}";
+	private static final String IPV6_RANGE_PATTERN = IPV6_ADDRESS_PATTERN + "/\\d{1,3}";
+
 	private IpFilter() {
 		// utility class
 	}
@@ -74,14 +79,14 @@ class IpFilter {
 		}
 
 		// validate remote address and filter range
-		if (remoteAddr.matches("\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}")) {
-			if (filterAddr.matches("\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}")) {
+		if (remoteAddr.matches(IPV4_ADDRESS_PATTERN)) {
+			if (filterAddr.matches(IPV4_ADDRESS_PATTERN)) {
 				// IPv4 addresses
 			} else {
 				return false;
 			}
-		} else if (remoteAddr.matches("[0-9a-fA-F:]{2,39}")) {
-			if (filterAddr.matches("[0-9a-fA-F:]{2,39}")) {
+		} else if (remoteAddr.matches(IPV6_ADDRESS_PATTERN)) {
+			if (filterAddr.matches(IPV6_ADDRESS_PATTERN)) {
 				// IPv6 addresses
 			} else {
 				return false;
@@ -108,14 +113,14 @@ class IpFilter {
 		}
 
 		// validate remote address and filter range
-		if (remoteAddr.matches("\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}")) {
-			if (filterRange.matches("\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}/\\d{1,3}")) {
+		if (remoteAddr.matches(IPV4_ADDRESS_PATTERN)) {
+			if (filterRange.matches(IPV4_RANGE_PATTERN)) {
 				// IPv4 address and IPv4 range
 			} else {
 				return false;
 			}
-		} else if (remoteAddr.matches("[0-9a-fA-F:]{2,39}")) {
-			if (filterRange.matches("[0-9a-fA-F:]{2,39}/\\d{1,3}")) {
+		} else if (remoteAddr.matches(IPV6_ADDRESS_PATTERN)) {
+			if (filterRange.matches(IPV6_RANGE_PATTERN)) {
 				// IPv6 address and IPv6 range
 			} else {
 				return false;
@@ -156,14 +161,26 @@ class IpFilter {
 
 		// compare bit sets up to mask limit
 		int bits = Integer.parseInt(filterMask); // number of equal bits (starting from left)
-		for (int b = 0; b < bits; b++) {
-			boolean remoteBit = remoteBits.get(b);
-			boolean filterBit = filterBits.get(b);
-			if (remoteBit != filterBit) {
+		return compareBitSets(remoteBits, filterBits, bits);
+	}
+
+	/**
+	 * Compares the first <code>len</code> bits of the two bit sets.
+	 *
+	 * @param bitSet1 Bit set 1
+	 * @param bitSet2 Bit set 2
+	 * @param len     Number of bits to compare
+	 * @return <code>true</code> if the first <code>len</code> bits of the two
+	 * bit sets are equal, <code>false</code> otherwise/.
+	 */
+	static boolean compareBitSets(BitSet bitSet1, BitSet bitSet2, int len) {
+		for (int b = 0; b < len; b++) {
+			boolean bit1 = bitSet1.get(b);
+			boolean bit2 = bitSet2.get(b);
+			if (bit1 != bit2) {
 				return false;
 			}
 		}
-
 		return true;
 	}
 
