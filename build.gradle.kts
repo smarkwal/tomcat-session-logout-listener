@@ -102,7 +102,7 @@ dependencies {
 
     // SLF4J
     testImplementation("org.slf4j:slf4j-api:2.0.2")
-    testRuntimeOnly("org.slf4j:slf4j-simple:2.0.1")
+    testRuntimeOnly("org.slf4j:slf4j-simple:2.0.2")
 }
 
 java {
