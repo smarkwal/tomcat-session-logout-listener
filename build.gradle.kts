@@ -91,7 +91,7 @@ dependencies {
 
     // Testcontainers
     testImplementation("org.testcontainers:testcontainers:1.17.3")
-    testImplementation("org.testcontainers:junit-jupiter:1.17.3")
+    testImplementation("org.testcontainers:junit-jupiter:1.17.6")
 
     // Apache HttpClient
     testImplementation("org.apache.httpcomponents:httpclient:4.5.13")
