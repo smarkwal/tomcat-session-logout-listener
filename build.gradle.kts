@@ -90,7 +90,7 @@ dependencies {
     testImplementation("org.assertj:assertj-core:3.23.1")
 
     // Testcontainers
-    testImplementation("org.testcontainers:testcontainers:1.17.3")
+    testImplementation("org.testcontainers:testcontainers:1.17.6")
     testImplementation("org.testcontainers:junit-jupiter:1.17.3")
 
     // Apache HttpClient
