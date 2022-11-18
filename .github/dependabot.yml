@@ -9,7 +9,7 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
-    open-pull-requests-limit: 0
+    open-pull-requests-limit: 100
     ignore:
       - dependency-name: "org.apache.tomcat:tomcat-catalina"
         versions: ["[10.0,)"]
@@ -17,4 +17,4 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
-    open-pull-requests-limit: 0
+    open-pull-requests-limit: 100
