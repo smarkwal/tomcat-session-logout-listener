@@ -89,7 +89,7 @@ The valve supports the following configuration attributes:
 | Attribute  | Default value   | Description                                                                                                                                              |
 |------------|-----------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `ipFilter` | `127.0.0.1,::1` | Comma-separated list of client IPv4 or IPv6 addresses and subnets that are allowed to call the web hook. The special value `*` matches all IP addresses. |
-| `password` | (not set)       | Password required to call the web hook. Must be submitted as request parameter `parameter`.                                                              |
+| `password` | (not set)       | Password required to call the web hook. Must be submitted as request parameter `password`.                                                              |
 
 Example configuration:
 
@@ -179,7 +179,6 @@ The session logout endpoint will return an HTTP response with status code 200 (O
 HTTP/1.1 200 OK
 Content-Type: text/plain;charset=UTF-8
 Content-Length: 2
-
 OK
 ```
 
