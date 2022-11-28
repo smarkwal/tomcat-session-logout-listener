@@ -179,6 +179,7 @@ The session logout endpoint will return an HTTP response with status code 200 (O
 HTTP/1.1 200 OK
 Content-Type: text/plain;charset=UTF-8
 Content-Length: 2
+
 OK
 ```
 
