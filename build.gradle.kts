@@ -95,7 +95,7 @@ dependencies {
 
     // Apache HttpClient
     testImplementation("org.apache.httpcomponents:httpclient:4.5.14")
-    testImplementation("org.apache.httpcomponents:fluent-hc:4.5.13")
+    testImplementation("org.apache.httpcomponents:fluent-hc:4.5.14")
 
     // Apache Commons IO
     testImplementation("commons-io:commons-io:2.11.0")
