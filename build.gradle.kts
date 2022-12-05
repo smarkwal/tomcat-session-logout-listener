@@ -94,7 +94,7 @@ dependencies {
     testImplementation("org.testcontainers:junit-jupiter:1.17.6")
 
     // Apache HttpClient
-    testImplementation("org.apache.httpcomponents:httpclient:4.5.13")
+    testImplementation("org.apache.httpcomponents:httpclient:4.5.14")
     testImplementation("org.apache.httpcomponents:fluent-hc:4.5.13")
 
     // Apache Commons IO
