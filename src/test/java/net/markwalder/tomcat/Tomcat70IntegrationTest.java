@@ -30,12 +30,12 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 
 @Testcontainers
 @DisplayName("Tomcat 7.0.109 on Java 8")
-public class Tomcat70109IntegrationTest extends AbstractTomcatIntegrationTest {
+public class Tomcat70IntegrationTest extends AbstractTomcatIntegrationTest {
 
 	@Container
 	private static final TomcatContainer container = createTomcatContainer("7.0.109", "8");
 
-	public Tomcat70109IntegrationTest() {
+	public Tomcat70IntegrationTest() {
 		super(container);
 	}
 
