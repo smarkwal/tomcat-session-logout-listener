@@ -74,7 +74,7 @@ dependencies {
 
     // main dependencies -------------------------------------------------------
 
-    api("org.apache.tomcat:tomcat-catalina:9.0.69")
+    api("org.apache.tomcat:tomcat-catalina:9.0.70")
 
     // test dependencies -------------------------------------------------------
 
