@@ -19,6 +19,11 @@ plugins {
 
     // provide utility task "taskTree" for analysis of task dependencies
     id("com.dorongold.task-tree") version "2.1.0"
+
+    // Gradle Versions Plugin
+    // https://github.com/ben-manes/gradle-versions-plugin
+    id("com.github.ben-manes.versions") version "0.44.0"
+
 }
 
 group = "net.markwalder"
@@ -64,7 +69,6 @@ gradle.taskGraph.whenReady {
 // dependencies ----------------------------------------------------------------
 
 repositories {
-    mavenLocal()
     maven {
         url = uri("https://repo.maven.apache.org/maven2/")
     }
@@ -83,8 +87,8 @@ dependencies {
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.1")
 
     // Mockito
-    testImplementation("org.mockito:mockito-core:4.9.0")
-    testImplementation("org.mockito:mockito-junit-jupiter:4.9.0")
+    testImplementation("org.mockito:mockito-core:4.10.0")
+    testImplementation("org.mockito:mockito-junit-jupiter:4.10.0")
 
     // AssertJ
     testImplementation("org.assertj:assertj-core:3.23.1")
@@ -96,6 +100,8 @@ dependencies {
     // Apache HttpClient
     testImplementation("org.apache.httpcomponents:httpclient:4.5.14")
     testImplementation("org.apache.httpcomponents:fluent-hc:4.5.14")
+    // fix Cxeb68d52e-5509 in transitive dependency on Commons Codec
+    testImplementation("commons-codec:commons-codec:1.15")
 
     // Apache Commons IO
     testImplementation("commons-io:commons-io:2.11.0")
@@ -189,6 +195,22 @@ tasks {
             // generate CSV report
             // csv.required.set(true)
         }
+    }
+
+    register("dumpDependencies") {
+        doLast {
+            val dependencies = arrayListOf<String>()
+            val configuration = project.configurations.getByName("runtimeClasspath")
+            configuration.resolvedConfiguration.resolvedArtifacts.forEach { artifact ->
+                dependencies.add(artifact.moduleVersion.id.toString())
+            }
+            dependencies.sort()
+            file("dependencies.txt").writeText(dependencies.joinToString("\n"))
+        }
+    }
+
+    build {
+        dependsOn("dumpDependencies")
     }
 
 }
