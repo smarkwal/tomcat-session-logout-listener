@@ -25,7 +25,7 @@ plugins {
     id("com.github.ben-manes.versions") version "0.44.0"
 
     // JarHC Gradle plugin
-    id("org.jarhc") version "1.0.0"
+    id("org.jarhc") version "1.0.1"
 }
 
 group = "net.markwalder"
@@ -209,7 +209,6 @@ tasks {
             file("${projectDir}/docs/jarhc-report.html"),
             file("${projectDir}/docs/jarhc-report.txt")
         )
-        dataDir.set(file("${rootDir}/.jarhc"))
     }
 
     build {
