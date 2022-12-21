@@ -24,6 +24,8 @@ plugins {
     // https://github.com/ben-manes/gradle-versions-plugin
     id("com.github.ben-manes.versions") version "0.44.0"
 
+    // JarHC Gradle plugin
+    id("org.jarhc") version "1.0.0"
 }
 
 group = "net.markwalder"
@@ -197,20 +199,21 @@ tasks {
         }
     }
 
-    register("dumpDependencies") {
-        doLast {
-            val dependencies = arrayListOf<String>()
-            val configuration = project.configurations.getByName("runtimeClasspath")
-            configuration.resolvedConfiguration.resolvedArtifacts.forEach { artifact ->
-                dependencies.add(artifact.moduleVersion.id.toString())
-            }
-            dependencies.sort()
-            file("dependencies.txt").writeText(dependencies.joinToString("\n"))
-        }
+    jarhcReport {
+        dependsOn(jar)
+        classpath.setFrom(
+            jar.get().archiveFile,
+            configurations.runtimeClasspath
+        )
+        reportFiles.setFrom(
+            file("${projectDir}/docs/jarhc-report.html"),
+            file("${projectDir}/docs/jarhc-report.txt")
+        )
+        dataDir.set(file("${rootDir}/.jarhc"))
     }
 
     build {
-        dependsOn("dumpDependencies")
+        dependsOn(jarhcReport)
     }
 
 }

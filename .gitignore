@@ -12,5 +12,8 @@
 /gradle.user.properties
 *.gpg
 
+# JarHC cache
+/.jarhc/
+
 # Other files
 .DS_Store
