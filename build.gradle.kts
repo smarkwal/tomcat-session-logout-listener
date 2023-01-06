@@ -93,7 +93,7 @@ dependencies {
     testImplementation("org.mockito:mockito-junit-jupiter:4.11.0")
 
     // AssertJ
-    testImplementation("org.assertj:assertj-core:3.23.1")
+    testImplementation("org.assertj:assertj-core:3.24.0")
 
     // Testcontainers
     testImplementation("org.testcontainers:testcontainers:1.17.6")
