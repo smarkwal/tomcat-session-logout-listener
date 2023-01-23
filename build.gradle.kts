@@ -88,7 +88,7 @@ dependencies {
     // Mockito
     // Note: Mockito 5 is not compatible with Java 8.
     testImplementation("org.mockito:mockito-core:4.11.0")
-    testImplementation("org.mockito:mockito-junit-jupiter:4.11.0")
+    testImplementation("org.mockito:mockito-junit-jupiter:5.0.0")
 
     // AssertJ
     testImplementation("org.assertj:assertj-core:3.24.2")
