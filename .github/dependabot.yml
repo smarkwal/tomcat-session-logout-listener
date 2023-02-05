@@ -17,6 +17,10 @@ updates:
     ignore:
       - dependency-name: "org.apache.tomcat:tomcat-catalina"
         versions: ["[10.0,)"]
+      - dependency-name: "org.mockito:mockito-core"
+        versions: ["[5.0,)"]
+      - dependency-name: "org.mockito:mockito-junit-jupiter"
+        versions: ["[5.0,)"]
 
   - package-ecosystem: "github-actions"
     directory: "/"
