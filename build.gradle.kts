@@ -9,7 +9,7 @@ plugins {
     `maven-publish`
 
     // run Sonar analysis
-    id("org.sonarqube") version "3.5.0.2730"
+    id("org.sonarqube") version "4.0.0.2929"
 
     // publish to Sonatype OSSRH and release to Maven Central
     id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
