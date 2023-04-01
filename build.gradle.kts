@@ -107,7 +107,7 @@ dependencies {
     testImplementation("commons-io:commons-io:2.11.0")
 
     // SLF4J
-    testImplementation("org.slf4j:slf4j-api:2.0.6")
+    testImplementation("org.slf4j:slf4j-api:2.0.7")
     testRuntimeOnly("org.slf4j:slf4j-simple:2.0.6")
 }
 
