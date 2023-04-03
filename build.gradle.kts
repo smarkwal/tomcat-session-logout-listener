@@ -9,17 +9,17 @@ plugins {
     `maven-publish`
 
     // run Sonar analysis
-    id("org.sonarqube") version "3.5.0.2730"
+    id("org.sonarqube") version "4.0.0.2929"
 
     // publish to Sonatype OSSRH and release to Maven Central
-    id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
+    id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
 
     // get current Git branch name
     id("org.ajoberstar.grgit") version "5.0.0"
 
     // Gradle Versions Plugin
     // https://github.com/ben-manes/gradle-versions-plugin
-    id("com.github.ben-manes.versions") version "0.45.0"
+    id("com.github.ben-manes.versions") version "0.46.0"
 
     // JarHC Gradle plugin
     id("org.jarhc") version "1.0.1"
@@ -77,7 +77,7 @@ dependencies {
 
     // main dependencies -------------------------------------------------------
 
-    api("org.apache.tomcat:tomcat-catalina:9.0.71")
+    api("org.apache.tomcat:tomcat-catalina:9.0.73")
 
     // test dependencies -------------------------------------------------------
 
@@ -107,8 +107,8 @@ dependencies {
     testImplementation("commons-io:commons-io:2.11.0")
 
     // SLF4J
-    testImplementation("org.slf4j:slf4j-api:2.0.6")
-    testRuntimeOnly("org.slf4j:slf4j-simple:2.0.6")
+    testImplementation("org.slf4j:slf4j-api:2.0.7")
+    testRuntimeOnly("org.slf4j:slf4j-simple:2.0.7")
 }
 
 java {

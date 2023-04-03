@@ -29,11 +29,11 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 @Testcontainers
-@DisplayName("Tomcat 8.5.85 on Java 11")
+@DisplayName("Tomcat 8.5.87 on Java 11")
 public class Tomcat85IntegrationTest extends AbstractTomcatIntegrationTest {
 
 	@Container
-	private static final TomcatContainer container = createTomcatContainer("8.5.85", "11");
+	private static final TomcatContainer container = createTomcatContainer("8.5.87", "11");
 
 	public Tomcat85IntegrationTest() {
 		super(container);
