@@ -15,7 +15,7 @@ plugins {
     id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
 
     // get current Git branch name
-    id("org.ajoberstar.grgit") version "5.0.0"
+    id("org.ajoberstar.grgit") version "5.2.0"
 
     // Gradle Versions Plugin
     // https://github.com/ben-manes/gradle-versions-plugin
@@ -77,13 +77,13 @@ dependencies {
 
     // main dependencies -------------------------------------------------------
 
-    api("org.apache.tomcat:tomcat-catalina:9.0.73")
+    api("org.apache.tomcat:tomcat-catalina:9.0.75")
 
     // test dependencies -------------------------------------------------------
 
     // JUnit 5
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.2")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.3")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.3")
 
     // Mockito
     // Note: Mockito 5 is not compatible with Java 8.
@@ -94,8 +94,8 @@ dependencies {
     testImplementation("org.assertj:assertj-core:3.24.2")
 
     // Testcontainers
-    testImplementation("org.testcontainers:testcontainers:1.18.0")
-    testImplementation("org.testcontainers:junit-jupiter:1.18.0")
+    testImplementation("org.testcontainers:testcontainers:1.18.1")
+    testImplementation("org.testcontainers:junit-jupiter:1.18.1")
 
     // Apache HttpClient
     testImplementation("org.apache.httpcomponents:httpclient:4.5.14")
@@ -125,7 +125,7 @@ java {
 }
 
 jacoco {
-    toolVersion = "0.8.8"
+    toolVersion = "0.8.10"
 }
 
 tasks.withType<JavaCompile> {
