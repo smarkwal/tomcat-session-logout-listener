@@ -9,7 +9,7 @@ plugins {
     `maven-publish`
 
     // run Sonar analysis
-    id("org.sonarqube") version "4.0.0.2929"
+    id("org.sonarqube") version "4.2.0.3129"
 
     // publish to Sonatype OSSRH and release to Maven Central
     id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
@@ -94,8 +94,8 @@ dependencies {
     testImplementation("org.assertj:assertj-core:3.24.2")
 
     // Testcontainers
-    testImplementation("org.testcontainers:testcontainers:1.18.1")
-    testImplementation("org.testcontainers:junit-jupiter:1.18.1")
+    testImplementation("org.testcontainers:testcontainers:1.18.3")
+    testImplementation("org.testcontainers:junit-jupiter:1.18.3")
 
     // Apache HttpClient
     testImplementation("org.apache.httpcomponents:httpclient:4.5.14")
@@ -104,7 +104,7 @@ dependencies {
     testImplementation("commons-codec:commons-codec:1.15")
 
     // Apache Commons IO
-    testImplementation("commons-io:commons-io:2.11.0")
+    testImplementation("commons-io:commons-io:2.12.0")
 
     // SLF4J
     testImplementation("org.slf4j:slf4j-api:2.0.7")

@@ -7,7 +7,7 @@ List of JAR files found in classpath.
 
 JAR file                                          | Size    | Classes | Resources | Checksum (SHA-1)                         | Artifact coordinates
 --------------------------------------------------+---------+---------+-----------+------------------------------------------+------------------------------------------------
-tomcat-session-logout-listener-1.2.1-SNAPSHOT.jar | 9.57 KB | 6       | 0         | 0cfef1ade7bf14a8446f1d21ee21ad8bcf90e40e | [unknown]
+tomcat-session-logout-listener-1.2.1-SNAPSHOT.jar | 9.57 KB | 6       | 0         | 6dd1adfc04a5ad453232f27fd5ad17b572f0a471 | [unknown]
 tomcat-catalina-9.0.75.jar                        | 1.66 MB | 694     | 47        | 1730878bb67051a7787031bc31f153daf0c5a8c0 | org.apache.tomcat:tomcat-catalina:9.0.75
 tomcat-jsp-api-9.0.75.jar                         | 62.2 KB | 60      | 2         | 1a4e73cf7fe4ee1f6c333e24da512550570a336a | org.apache.tomcat:tomcat-jsp-api:9.0.75
 tomcat-util-scan-9.0.75.jar                       | 220 KB  | 118     | 6         | 594d58cd21882899c22f2de8343983d4c579d458 | org.apache.tomcat:tomcat-util-scan:9.0.75
@@ -453,8 +453,8 @@ Java Runtime
 ------------
 Information about JRE/JDK runtime.
 
-Java home    : /Users/markwalder/Library/Java/JavaVirtualMachines/temurin-11.0.17/Contents/Home
+Java home    : /Users/markwalder/Library/Java/JavaVirtualMachines/temurin-11.0.19/Contents/Home
 Java runtime : OpenJDK Runtime Environment
-Java version : 11.0.17
+Java version : 11.0.19
 Java vendor  : Eclipse Adoptium
 
