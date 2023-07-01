@@ -101,7 +101,7 @@ dependencies {
     testImplementation("org.apache.httpcomponents:httpclient:4.5.14")
     testImplementation("org.apache.httpcomponents:fluent-hc:4.5.14")
     // fix Cxeb68d52e-5509 in transitive dependency on Commons Codec
-    testImplementation("commons-codec:commons-codec:1.15")
+    testImplementation("commons-codec:commons-codec:1.16.0")
 
     // Apache Commons IO
     testImplementation("commons-io:commons-io:2.12.0")
