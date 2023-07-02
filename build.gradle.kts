@@ -9,7 +9,7 @@ plugins {
     `maven-publish`
 
     // run Sonar analysis
-    id("org.sonarqube") version "4.2.0.3129"
+    id("org.sonarqube") version "4.2.1.3168"
 
     // publish to Sonatype OSSRH and release to Maven Central
     id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
@@ -19,7 +19,7 @@ plugins {
 
     // Gradle Versions Plugin
     // https://github.com/ben-manes/gradle-versions-plugin
-    id("com.github.ben-manes.versions") version "0.46.0"
+    id("com.github.ben-manes.versions") version "0.47.0"
 
     // JarHC Gradle plugin
     id("org.jarhc") version "1.0.1"
@@ -77,7 +77,7 @@ dependencies {
 
     // main dependencies -------------------------------------------------------
 
-    api("org.apache.tomcat:tomcat-catalina:9.0.75")
+    api("org.apache.tomcat:tomcat-catalina:9.0.76")
 
     // test dependencies -------------------------------------------------------
 
@@ -101,10 +101,10 @@ dependencies {
     testImplementation("org.apache.httpcomponents:httpclient:4.5.14")
     testImplementation("org.apache.httpcomponents:fluent-hc:4.5.14")
     // fix Cxeb68d52e-5509 in transitive dependency on Commons Codec
-    testImplementation("commons-codec:commons-codec:1.15")
+    testImplementation("commons-codec:commons-codec:1.16.0")
 
     // Apache Commons IO
-    testImplementation("commons-io:commons-io:2.12.0")
+    testImplementation("commons-io:commons-io:2.13.0")
 
     // SLF4J
     testImplementation("org.slf4j:slf4j-api:2.0.7")
