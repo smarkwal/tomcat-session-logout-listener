@@ -213,6 +213,15 @@ tasks {
         dependsOn(jarhcReport)
     }
 
+    dependencyUpdates {
+        rejectVersionIf {
+            candidate.version.contains("-M") // ignore milestone version
+                    || candidate.version.contains("-rc") // ignore release candidate versions
+                    || candidate.group == "org.apache.tomcat" && candidate.module == "tomcat-catalina" && candidate.version < "9" // ignore Tomcat 10.0 and greater
+                    || candidate.group == "org.mockito" && candidate.version >= "5" // ignore Mockito 5 and greater
+        }
+    }
+
 }
 
 sonar {
