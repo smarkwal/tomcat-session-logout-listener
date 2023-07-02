@@ -7,7 +7,7 @@ List of JAR files found in classpath.
 
 JAR file                                          | Size    | Classes | Resources | Checksum (SHA-1)                         | Artifact coordinates
 --------------------------------------------------+---------+---------+-----------+------------------------------------------+------------------------------------------------
-tomcat-session-logout-listener-1.2.1-SNAPSHOT.jar | 9.57 KB | 6       | 0         | a44749300abd10d83501118bdb00b601c27418b4 | [unknown]
+tomcat-session-logout-listener-1.2.1-SNAPSHOT.jar | 9.57 KB | 6       | 0         | d350c246fa4a889c2c78c097c74de62e4436ac58 | [unknown]
 tomcat-catalina-9.0.76.jar                        | 1.67 MB | 703     | 47        | ec206ed68e4768a2c6fd459b4f88d18cdfd8956b | org.apache.tomcat:tomcat-catalina:9.0.76
 tomcat-jsp-api-9.0.76.jar                         | 62.2 KB | 60      | 2         | b438586923dbb367e76b79ccd52d576e52c57b24 | org.apache.tomcat:tomcat-jsp-api:9.0.76
 tomcat-util-scan-9.0.76.jar                       | 220 KB  | 118     | 6         | a16e67c765087ba7f001d773fa0fedf56a0aaf69 | org.apache.tomcat:tomcat-util-scan:9.0.76
