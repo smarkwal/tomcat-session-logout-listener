@@ -7,20 +7,20 @@ List of JAR files found in classpath.
 
 JAR file                                          | Size    | Classes | Resources | Checksum (SHA-1)                         | Artifact coordinates
 --------------------------------------------------+---------+---------+-----------+------------------------------------------+------------------------------------------------
-tomcat-session-logout-listener-1.2.1-SNAPSHOT.jar | 9.57 KB | 6       | 0         | d350c246fa4a889c2c78c097c74de62e4436ac58 | [unknown]
-tomcat-catalina-9.0.76.jar                        | 1.67 MB | 703     | 47        | ec206ed68e4768a2c6fd459b4f88d18cdfd8956b | org.apache.tomcat:tomcat-catalina:9.0.76
-tomcat-jsp-api-9.0.76.jar                         | 62.2 KB | 60      | 2         | b438586923dbb367e76b79ccd52d576e52c57b24 | org.apache.tomcat:tomcat-jsp-api:9.0.76
-tomcat-util-scan-9.0.76.jar                       | 220 KB  | 118     | 6         | a16e67c765087ba7f001d773fa0fedf56a0aaf69 | org.apache.tomcat:tomcat-util-scan:9.0.76
-tomcat-api-9.0.76.jar                             | 11.2 KB | 11      | 0         | 6186fd0dd226f5d0fe05b0bb63272ab618aa16c4 | org.apache.tomcat:tomcat-api:9.0.76
-tomcat-coyote-9.0.76.jar                          | 923 KB  | 433     | 16        | b7441b15ea12f2705ecc991034ae716adf16c6dd | org.apache.tomcat:tomcat-coyote:9.0.76
-tomcat-servlet-api-9.0.76.jar                     | 278 KB  | 91      | 39        | 1e279b89ab5c806b0238555e079d910ad8315ad2 | org.apache.tomcat:tomcat-servlet-api:9.0.76
-tomcat-util-9.0.76.jar                            | 216 KB  | 112     | 7         | c321632dcfea382e8f451f790106d97ec16866e3 | org.apache.tomcat:tomcat-util:9.0.76
-tomcat-juli-9.0.76.jar                            | 47.8 KB | 27      | 0         | 5946c7b933edface4cec1c4d14af0afd7ef0f73d | org.apache.tomcat:tomcat-juli:9.0.76
-tomcat-annotations-api-9.0.76.jar                 | 12.9 KB | 15      | 0         | 24631d7e900e260d1c30d6f81d0509d83ab7fac2 | org.apache.tomcat:tomcat-annotations-api:9.0.76
-tomcat-jni-9.0.76.jar                             | 37.0 KB | 37      | 0         | 5e0b23653312dd12025f7bc73b2780c14b9d2135 | org.apache.tomcat:tomcat-jni:9.0.76
-tomcat-jaspic-api-9.0.76.jar                      | 26.5 KB | 34      | 0         | 9271777796d1afce2e3a08ecf29aa9280a8d88ec | org.apache.tomcat:tomcat-jaspic-api:9.0.76
-tomcat-el-api-9.0.76.jar                          | 86.0 KB | 56      | 1         | f355f7e462e13280dad587cdb03d5fdd6b4fad50 | org.apache.tomcat:tomcat-el-api:9.0.76
-Classpath                                         | 3.56 MB | 1703    | 118       | -                                        | -
+tomcat-session-logout-listener-1.2.1-SNAPSHOT.jar | 9.57 KB | 6       | 0         | 908ce2b17a4f3e9f47ad272f225191518d0ffecd | [unknown]
+tomcat-catalina-9.0.78.jar                        | 1.68 MB | 705     | 47        | 298b6360f70a6611b416e5bdbb546d68d44de3b0 | org.apache.tomcat:tomcat-catalina:9.0.78
+tomcat-jsp-api-9.0.78.jar                         | 62.2 KB | 60      | 2         | 105c20fc13d523a01682f216a8b39bb94f3a8ea7 | org.apache.tomcat:tomcat-jsp-api:9.0.78
+tomcat-util-scan-9.0.78.jar                       | 220 KB  | 118     | 6         | ae49bc05d684e0a0615441fb786d260900cd464f | org.apache.tomcat:tomcat-util-scan:9.0.78
+tomcat-api-9.0.78.jar                             | 11.2 KB | 11      | 0         | 1433f1785664fe818225513473017cb52f993af4 | org.apache.tomcat:tomcat-api:9.0.78
+tomcat-coyote-9.0.78.jar                          | 923 KB  | 433     | 16        | 4f78ea1ffb2f0dad738ba10d30e48f7de808cb2c | org.apache.tomcat:tomcat-coyote:9.0.78
+tomcat-servlet-api-9.0.78.jar                     | 278 KB  | 91      | 39        | c8149ace1d0ee764a25ec0f1a8fa59f402bf86a8 | org.apache.tomcat:tomcat-servlet-api:9.0.78
+tomcat-util-9.0.78.jar                            | 217 KB  | 112     | 7         | 8282d8f963a0a07103ed7cc6bfee67175f64df58 | org.apache.tomcat:tomcat-util:9.0.78
+tomcat-juli-9.0.78.jar                            | 47.8 KB | 27      | 0         | 7bc0ec159e1bfbc4022352643f6228c806c1e058 | org.apache.tomcat:tomcat-juli:9.0.78
+tomcat-annotations-api-9.0.78.jar                 | 12.9 KB | 15      | 0         | 6ac68a56737b96017e7399a4da02b4296280b66b | org.apache.tomcat:tomcat-annotations-api:9.0.78
+tomcat-jni-9.0.78.jar                             | 37.0 KB | 37      | 0         | 1a91fe1873ea4add75dd3d6ce3819962bb472690 | org.apache.tomcat:tomcat-jni:9.0.78
+tomcat-jaspic-api-9.0.78.jar                      | 26.5 KB | 34      | 0         | 497dffe39216ab3ecb00919b0b7a70afd7a77793 | org.apache.tomcat:tomcat-jaspic-api:9.0.78
+tomcat-el-api-9.0.78.jar                          | 86.0 KB | 56      | 1         | f0e257f01889897c68d0db353038fa8198ee5285 | org.apache.tomcat:tomcat-el-api:9.0.78
+Classpath                                         | 3.56 MB | 1705    | 118       | -                                        | -
 
 Modules
 -------
@@ -29,7 +29,7 @@ List of Java Modules found in classpath.
 JAR file                                          | Module name                    | Definition     | Automatic | Requires                    | Exports
 --------------------------------------------------+--------------------------------+----------------+-----------+-----------------------------+-----------------------------------------------
 tomcat-session-logout-listener-1.2.1-SNAPSHOT.jar | tomcat.session.logout.listener | Auto-generated | Yes       | -                           | [all packages]
-tomcat-catalina-9.0.76.jar                        | org.apache.tomcat.catalina     | Module-Info    | No        | javax.ejb.api               | org.apache.catalina
+tomcat-catalina-9.0.78.jar                        | org.apache.tomcat.catalina     | Module-Info    | No        | javax.ejb.api               | org.apache.catalina
                                                   |                                |                |           | javax.mail.api              | org.apache.catalina.authenticator
                                                   |                                |                |           | javax.xml.rpc.api           | org.apache.catalina.authenticator.jaspic
                                                   |                                |                |           | javax.xml.ws                | org.apache.catalina.connector
@@ -56,22 +56,22 @@ tomcat-catalina-9.0.76.jar                        | org.apache.tomcat.catalina  
                                                   |                                |                |           |                             | org.apache.naming
                                                   |                                |                |           |                             | org.apache.naming.factory
                                                   |                                |                |           |                             | org.apache.naming.java
-tomcat-jsp-api-9.0.76.jar                         | java.servlet.jsp               | Module-Info    | No        | java.desktop                | javax.servlet.jsp
+tomcat-jsp-api-9.0.78.jar                         | java.servlet.jsp               | Module-Info    | No        | java.desktop                | javax.servlet.jsp
                                                   |                                |                |           | java.el                     | javax.servlet.jsp.el
                                                   |                                |                |           | java.servlet                | javax.servlet.jsp.resources
                                                   |                                |                |           | java.base                   | javax.servlet.jsp.tagext
-tomcat-util-scan-9.0.76.jar                       | org.apache.tomcat.util.scan    | Module-Info    | No        | org.apache.tomcat.api       | org.apache.tomcat.util.descriptor
+tomcat-util-scan-9.0.78.jar                       | org.apache.tomcat.util.scan    | Module-Info    | No        | org.apache.tomcat.api       | org.apache.tomcat.util.descriptor
                                                   |                                |                |           | org.apache.tomcat.juli      | org.apache.tomcat.util.descriptor.tagplugin
                                                   |                                |                |           | org.apache.tomcat.util      | org.apache.tomcat.util.descriptor.tld
                                                   |                                |                |           | java.servlet                | org.apache.tomcat.util.descriptor.web
                                                   |                                |                |           | java.servlet.jsp            | org.apache.tomcat.util.digester
                                                   |                                |                |           | java.xml                    | org.apache.tomcat.util.scan
                                                   |                                |                |           | java.base                   |
-tomcat-api-9.0.76.jar                             | org.apache.tomcat.api          | Module-Info    | No        | java.instrument             | org.apache.tomcat
+tomcat-api-9.0.78.jar                             | org.apache.tomcat.api          | Module-Info    | No        | java.instrument             | org.apache.tomcat
                                                   |                                |                |           | java.naming                 |
                                                   |                                |                |           | java.servlet                |
                                                   |                                |                |           | java.base                   |
-tomcat-coyote-9.0.76.jar                          | org.apache.tomcat.coyote       | Module-Info    | No        | org.apache.tomcat.api       | org.apache.coyote
+tomcat-coyote-9.0.78.jar                          | org.apache.tomcat.coyote       | Module-Info    | No        | org.apache.tomcat.api       | org.apache.coyote
                                                   |                                |                |           | org.apache.tomcat.jni       | org.apache.coyote.ajp
                                                   |                                |                |           | org.apache.tomcat.juli      | org.apache.coyote.http11
                                                   |                                |                |           | org.apache.tomcat.util      | org.apache.coyote.http11.filters
@@ -91,12 +91,12 @@ tomcat-coyote-9.0.76.jar                          | org.apache.tomcat.coyote    
                                                   |                                |                |           |                             | org.apache.tomcat.util.net.jsse
                                                   |                                |                |           |                             | org.apache.tomcat.util.net.openssl
                                                   |                                |                |           |                             | org.apache.tomcat.util.net.openssl.ciphers
-tomcat-servlet-api-9.0.76.jar                     | java.servlet                   | Module-Info    | No        | java.base                   | javax.servlet
+tomcat-servlet-api-9.0.78.jar                     | java.servlet                   | Module-Info    | No        | java.base                   | javax.servlet
                                                   |                                |                |           |                             | javax.servlet.annotation
                                                   |                                |                |           |                             | javax.servlet.descriptor
                                                   |                                |                |           |                             | javax.servlet.http
                                                   |                                |                |           |                             | javax.servlet.resources
-tomcat-util-9.0.76.jar                            | org.apache.tomcat.util         | Module-Info    | No        | org.apache.tomcat.juli      | org.apache.tomcat.util
+tomcat-util-9.0.78.jar                            | org.apache.tomcat.util         | Module-Info    | No        | org.apache.tomcat.juli      | org.apache.tomcat.util
                                                   |                                |                |           | java.management             | org.apache.tomcat.util.buf
                                                   |                                |                |           | java.base                   | org.apache.tomcat.util.codec.binary
                                                   |                                |                |           |                             | org.apache.tomcat.util.collections
@@ -105,19 +105,19 @@ tomcat-util-9.0.76.jar                            | org.apache.tomcat.util      
                                                   |                                |                |           |                             | org.apache.tomcat.util.res
                                                   |                                |                |           |                             | org.apache.tomcat.util.security
                                                   |                                |                |           |                             | org.apache.tomcat.util.threads
-tomcat-juli-9.0.76.jar                            | org.apache.tomcat.juli         | Module-Info    | No        | java.logging                | org.apache.juli
+tomcat-juli-9.0.78.jar                            | org.apache.tomcat.juli         | Module-Info    | No        | java.logging                | org.apache.juli
                                                   |                                |                |           | java.management             | org.apache.juli.logging
                                                   |                                |                |           | java.sql                    |
                                                   |                                |                |           | java.base                   |
-tomcat-annotations-api-9.0.76.jar                 | java.annotation                | Module-Info    | No        | java.base                   | javax.annotation
+tomcat-annotations-api-9.0.78.jar                 | java.annotation                | Module-Info    | No        | java.base                   | javax.annotation
                                                   |                                |                |           |                             | javax.annotation.security
                                                   |                                |                |           |                             | javax.annotation.sql
-tomcat-jni-9.0.76.jar                             | org.apache.tomcat.jni          | Module-Info    | No        | java.base                   | org.apache.tomcat.jni
-tomcat-jaspic-api-9.0.76.jar                      | java.security.auth.message     | Module-Info    | No        | java.base                   | javax.security.auth.message
+tomcat-jni-9.0.78.jar                             | org.apache.tomcat.jni          | Module-Info    | No        | java.base                   | org.apache.tomcat.jni
+tomcat-jaspic-api-9.0.78.jar                      | java.security.auth.message     | Module-Info    | No        | java.base                   | javax.security.auth.message
                                                   |                                |                |           |                             | javax.security.auth.message.callback
                                                   |                                |                |           |                             | javax.security.auth.message.config
                                                   |                                |                |           |                             | javax.security.auth.message.module
-tomcat-el-api-9.0.76.jar                          | java.el                        | Module-Info    | No        | java.desktop                | javax.el
+tomcat-el-api-9.0.78.jar                          | java.el                        | Module-Info    | No        | java.desktop                | javax.el
                                                   |                                |                |           | java.base                   |
 
 Class Versions
@@ -127,19 +127,19 @@ Java class file format information.
 JAR file                                          | Multi-release | Class files by Java version
 --------------------------------------------------+---------------+----------------------------
 tomcat-session-logout-listener-1.2.1-SNAPSHOT.jar | No            | Java 8 (6)
-tomcat-catalina-9.0.76.jar                        | No            | Java 8 (703)
-tomcat-jsp-api-9.0.76.jar                         | No            | Java 8 (60)
-tomcat-util-scan-9.0.76.jar                       | No            | Java 8 (118)
-tomcat-api-9.0.76.jar                             | No            | Java 8 (11)
-tomcat-coyote-9.0.76.jar                          | No            | Java 8 (433)
-tomcat-servlet-api-9.0.76.jar                     | No            | Java 8 (91)
-tomcat-util-9.0.76.jar                            | No            | Java 8 (112)
-tomcat-juli-9.0.76.jar                            | No            | Java 8 (27)
-tomcat-annotations-api-9.0.76.jar                 | No            | Java 8 (15)
-tomcat-jni-9.0.76.jar                             | No            | Java 8 (37)
-tomcat-jaspic-api-9.0.76.jar                      | No            | Java 8 (34)
-tomcat-el-api-9.0.76.jar                          | No            | Java 8 (56)
-Classpath                                         | -             | Java 8 (1703)
+tomcat-catalina-9.0.78.jar                        | No            | Java 8 (705)
+tomcat-jsp-api-9.0.78.jar                         | No            | Java 8 (60)
+tomcat-util-scan-9.0.78.jar                       | No            | Java 8 (118)
+tomcat-api-9.0.78.jar                             | No            | Java 8 (11)
+tomcat-coyote-9.0.78.jar                          | No            | Java 8 (433)
+tomcat-servlet-api-9.0.78.jar                     | No            | Java 8 (91)
+tomcat-util-9.0.78.jar                            | No            | Java 8 (112)
+tomcat-juli-9.0.78.jar                            | No            | Java 8 (27)
+tomcat-annotations-api-9.0.78.jar                 | No            | Java 8 (15)
+tomcat-jni-9.0.78.jar                             | No            | Java 8 (37)
+tomcat-jaspic-api-9.0.78.jar                      | No            | Java 8 (34)
+tomcat-el-api-9.0.78.jar                          | No            | Java 8 (56)
+Classpath                                         | -             | Java 8 (1705)
 
 JAR Dependencies
 ----------------
@@ -147,53 +147,53 @@ Dependencies between JAR files.
 
 JAR file                                          | Uses                              | Used by
 --------------------------------------------------+-----------------------------------+--------------------------------------------------
-tomcat-session-logout-listener-1.2.1-SNAPSHOT.jar | tomcat-catalina-9.0.76.jar        | [none]
-                                                  | tomcat-juli-9.0.76.jar            |
-                                                  | tomcat-servlet-api-9.0.76.jar     |
-tomcat-catalina-9.0.76.jar                        | tomcat-annotations-api-9.0.76.jar | tomcat-jaspic-api-9.0.76.jar
-                                                  | tomcat-api-9.0.76.jar             | tomcat-session-logout-listener-1.2.1-SNAPSHOT.jar
-                                                  | tomcat-coyote-9.0.76.jar          |
-                                                  | tomcat-jaspic-api-9.0.76.jar      |
-                                                  | tomcat-jni-9.0.76.jar             |
-                                                  | tomcat-juli-9.0.76.jar            |
-                                                  | tomcat-servlet-api-9.0.76.jar     |
-                                                  | tomcat-util-9.0.76.jar            |
-                                                  | tomcat-util-scan-9.0.76.jar       |
-tomcat-jsp-api-9.0.76.jar                         | tomcat-el-api-9.0.76.jar          | tomcat-util-scan-9.0.76.jar
-                                                  | tomcat-servlet-api-9.0.76.jar     |
-tomcat-util-scan-9.0.76.jar                       | tomcat-api-9.0.76.jar             | tomcat-catalina-9.0.76.jar
-                                                  | tomcat-jsp-api-9.0.76.jar         | tomcat-coyote-9.0.76.jar
-                                                  | tomcat-juli-9.0.76.jar            |
-                                                  | tomcat-servlet-api-9.0.76.jar     |
-                                                  | tomcat-util-9.0.76.jar            |
-tomcat-api-9.0.76.jar                             | tomcat-servlet-api-9.0.76.jar     | tomcat-catalina-9.0.76.jar
-                                                  |                                   | tomcat-coyote-9.0.76.jar
-                                                  |                                   | tomcat-util-scan-9.0.76.jar
-tomcat-coyote-9.0.76.jar                          | tomcat-api-9.0.76.jar             | tomcat-catalina-9.0.76.jar
-                                                  | tomcat-jni-9.0.76.jar             |
-                                                  | tomcat-juli-9.0.76.jar            |
-                                                  | tomcat-servlet-api-9.0.76.jar     |
-                                                  | tomcat-util-9.0.76.jar            |
-                                                  | tomcat-util-scan-9.0.76.jar       |
-tomcat-servlet-api-9.0.76.jar                     | [none]                            | tomcat-api-9.0.76.jar
-                                                  |                                   | tomcat-catalina-9.0.76.jar
-                                                  |                                   | tomcat-coyote-9.0.76.jar
-                                                  |                                   | tomcat-jsp-api-9.0.76.jar
+tomcat-session-logout-listener-1.2.1-SNAPSHOT.jar | tomcat-catalina-9.0.78.jar        | [none]
+                                                  | tomcat-juli-9.0.78.jar            |
+                                                  | tomcat-servlet-api-9.0.78.jar     |
+tomcat-catalina-9.0.78.jar                        | tomcat-annotations-api-9.0.78.jar | tomcat-jaspic-api-9.0.78.jar
+                                                  | tomcat-api-9.0.78.jar             | tomcat-session-logout-listener-1.2.1-SNAPSHOT.jar
+                                                  | tomcat-coyote-9.0.78.jar          |
+                                                  | tomcat-jaspic-api-9.0.78.jar      |
+                                                  | tomcat-jni-9.0.78.jar             |
+                                                  | tomcat-juli-9.0.78.jar            |
+                                                  | tomcat-servlet-api-9.0.78.jar     |
+                                                  | tomcat-util-9.0.78.jar            |
+                                                  | tomcat-util-scan-9.0.78.jar       |
+tomcat-jsp-api-9.0.78.jar                         | tomcat-el-api-9.0.78.jar          | tomcat-util-scan-9.0.78.jar
+                                                  | tomcat-servlet-api-9.0.78.jar     |
+tomcat-util-scan-9.0.78.jar                       | tomcat-api-9.0.78.jar             | tomcat-catalina-9.0.78.jar
+                                                  | tomcat-jsp-api-9.0.78.jar         | tomcat-coyote-9.0.78.jar
+                                                  | tomcat-juli-9.0.78.jar            |
+                                                  | tomcat-servlet-api-9.0.78.jar     |
+                                                  | tomcat-util-9.0.78.jar            |
+tomcat-api-9.0.78.jar                             | tomcat-servlet-api-9.0.78.jar     | tomcat-catalina-9.0.78.jar
+                                                  |                                   | tomcat-coyote-9.0.78.jar
+                                                  |                                   | tomcat-util-scan-9.0.78.jar
+tomcat-coyote-9.0.78.jar                          | tomcat-api-9.0.78.jar             | tomcat-catalina-9.0.78.jar
+                                                  | tomcat-jni-9.0.78.jar             |
+                                                  | tomcat-juli-9.0.78.jar            |
+                                                  | tomcat-servlet-api-9.0.78.jar     |
+                                                  | tomcat-util-9.0.78.jar            |
+                                                  | tomcat-util-scan-9.0.78.jar       |
+tomcat-servlet-api-9.0.78.jar                     | [none]                            | tomcat-api-9.0.78.jar
+                                                  |                                   | tomcat-catalina-9.0.78.jar
+                                                  |                                   | tomcat-coyote-9.0.78.jar
+                                                  |                                   | tomcat-jsp-api-9.0.78.jar
                                                   |                                   | tomcat-session-logout-listener-1.2.1-SNAPSHOT.jar
-                                                  |                                   | tomcat-util-scan-9.0.76.jar
-tomcat-util-9.0.76.jar                            | tomcat-juli-9.0.76.jar            | tomcat-catalina-9.0.76.jar
-                                                  |                                   | tomcat-coyote-9.0.76.jar
-                                                  |                                   | tomcat-util-scan-9.0.76.jar
-tomcat-juli-9.0.76.jar                            | [none]                            | tomcat-catalina-9.0.76.jar
-                                                  |                                   | tomcat-coyote-9.0.76.jar
+                                                  |                                   | tomcat-util-scan-9.0.78.jar
+tomcat-util-9.0.78.jar                            | tomcat-juli-9.0.78.jar            | tomcat-catalina-9.0.78.jar
+                                                  |                                   | tomcat-coyote-9.0.78.jar
+                                                  |                                   | tomcat-util-scan-9.0.78.jar
+tomcat-juli-9.0.78.jar                            | [none]                            | tomcat-catalina-9.0.78.jar
+                                                  |                                   | tomcat-coyote-9.0.78.jar
                                                   |                                   | tomcat-session-logout-listener-1.2.1-SNAPSHOT.jar
-                                                  |                                   | tomcat-util-9.0.76.jar
-                                                  |                                   | tomcat-util-scan-9.0.76.jar
-tomcat-annotations-api-9.0.76.jar                 | [none]                            | tomcat-catalina-9.0.76.jar
-tomcat-jni-9.0.76.jar                             | [none]                            | tomcat-catalina-9.0.76.jar
-                                                  |                                   | tomcat-coyote-9.0.76.jar
-tomcat-jaspic-api-9.0.76.jar                      | tomcat-catalina-9.0.76.jar        | tomcat-catalina-9.0.76.jar
-tomcat-el-api-9.0.76.jar                          | [none]                            | tomcat-jsp-api-9.0.76.jar
+                                                  |                                   | tomcat-util-9.0.78.jar
+                                                  |                                   | tomcat-util-scan-9.0.78.jar
+tomcat-annotations-api-9.0.78.jar                 | [none]                            | tomcat-catalina-9.0.78.jar
+tomcat-jni-9.0.78.jar                             | [none]                            | tomcat-catalina-9.0.78.jar
+                                                  |                                   | tomcat-coyote-9.0.78.jar
+tomcat-jaspic-api-9.0.78.jar                      | tomcat-catalina-9.0.78.jar        | tomcat-catalina-9.0.78.jar
+tomcat-el-api-9.0.78.jar                          | [none]                            | tomcat-jsp-api-9.0.78.jar
 
 Dependencies
 ------------
@@ -202,33 +202,33 @@ Dependencies as declared in POM file.
 JAR file                                          | Maven coordinates                               | Direct dependencies                             | Status
 --------------------------------------------------+-------------------------------------------------+-------------------------------------------------+-------
 tomcat-session-logout-listener-1.2.1-SNAPSHOT.jar | [unknown]                                       | [unknown]                                       |
-tomcat-catalina-9.0.76.jar                        | org.apache.tomcat:tomcat-catalina:9.0.76        | org.apache.tomcat:tomcat-servlet-api:9.0.76     | OK
-                                                  |                                                 | org.apache.tomcat:tomcat-jsp-api:9.0.76         | OK
-                                                  |                                                 | org.apache.tomcat:tomcat-juli:9.0.76            | OK
-                                                  |                                                 | org.apache.tomcat:tomcat-annotations-api:9.0.76 | OK
-                                                  |                                                 | org.apache.tomcat:tomcat-api:9.0.76             | OK
-                                                  |                                                 | org.apache.tomcat:tomcat-jni:9.0.76             | OK
-                                                  |                                                 | org.apache.tomcat:tomcat-coyote:9.0.76          | OK
-                                                  |                                                 | org.apache.tomcat:tomcat-util:9.0.76            | OK
-                                                  |                                                 | org.apache.tomcat:tomcat-util-scan:9.0.76       | OK
-                                                  |                                                 | org.apache.tomcat:tomcat-jaspic-api:9.0.76      | OK
-tomcat-jsp-api-9.0.76.jar                         | org.apache.tomcat:tomcat-jsp-api:9.0.76         | org.apache.tomcat:tomcat-el-api:9.0.76          | OK
-                                                  |                                                 | org.apache.tomcat:tomcat-servlet-api:9.0.76     | OK
-tomcat-util-scan-9.0.76.jar                       | org.apache.tomcat:tomcat-util-scan:9.0.76       | org.apache.tomcat:tomcat-util:9.0.76            | OK
-                                                  |                                                 | org.apache.tomcat:tomcat-juli:9.0.76            | OK
-                                                  |                                                 | org.apache.tomcat:tomcat-api:9.0.76             | OK
-tomcat-api-9.0.76.jar                             | org.apache.tomcat:tomcat-api:9.0.76             | org.apache.tomcat:tomcat-servlet-api:9.0.76     | OK
-tomcat-coyote-9.0.76.jar                          | org.apache.tomcat:tomcat-coyote:9.0.76          | org.apache.tomcat:tomcat-servlet-api:9.0.76     | OK
-                                                  |                                                 | org.apache.tomcat:tomcat-jni:9.0.76             | OK
-                                                  |                                                 | org.apache.tomcat:tomcat-juli:9.0.76            | OK
-                                                  |                                                 | org.apache.tomcat:tomcat-util:9.0.76            | OK
-tomcat-servlet-api-9.0.76.jar                     | org.apache.tomcat:tomcat-servlet-api:9.0.76     | [none]                                          |
-tomcat-util-9.0.76.jar                            | org.apache.tomcat:tomcat-util:9.0.76            | org.apache.tomcat:tomcat-juli:9.0.76            | OK
-tomcat-juli-9.0.76.jar                            | org.apache.tomcat:tomcat-juli:9.0.76            | [none]                                          |
-tomcat-annotations-api-9.0.76.jar                 | org.apache.tomcat:tomcat-annotations-api:9.0.76 | [none]                                          |
-tomcat-jni-9.0.76.jar                             | org.apache.tomcat:tomcat-jni:9.0.76             | [none]                                          |
-tomcat-jaspic-api-9.0.76.jar                      | org.apache.tomcat:tomcat-jaspic-api:9.0.76      | [none]                                          |
-tomcat-el-api-9.0.76.jar                          | org.apache.tomcat:tomcat-el-api:9.0.76          | [none]                                          |
+tomcat-catalina-9.0.78.jar                        | org.apache.tomcat:tomcat-catalina:9.0.78        | org.apache.tomcat:tomcat-servlet-api:9.0.78     | OK
+                                                  |                                                 | org.apache.tomcat:tomcat-jsp-api:9.0.78         | OK
+                                                  |                                                 | org.apache.tomcat:tomcat-juli:9.0.78            | OK
+                                                  |                                                 | org.apache.tomcat:tomcat-annotations-api:9.0.78 | OK
+                                                  |                                                 | org.apache.tomcat:tomcat-api:9.0.78             | OK
+                                                  |                                                 | org.apache.tomcat:tomcat-jni:9.0.78             | OK
+                                                  |                                                 | org.apache.tomcat:tomcat-coyote:9.0.78          | OK
+                                                  |                                                 | org.apache.tomcat:tomcat-util:9.0.78            | OK
+                                                  |                                                 | org.apache.tomcat:tomcat-util-scan:9.0.78       | OK
+                                                  |                                                 | org.apache.tomcat:tomcat-jaspic-api:9.0.78      | OK
+tomcat-jsp-api-9.0.78.jar                         | org.apache.tomcat:tomcat-jsp-api:9.0.78         | org.apache.tomcat:tomcat-el-api:9.0.78          | OK
+                                                  |                                                 | org.apache.tomcat:tomcat-servlet-api:9.0.78     | OK
+tomcat-util-scan-9.0.78.jar                       | org.apache.tomcat:tomcat-util-scan:9.0.78       | org.apache.tomcat:tomcat-util:9.0.78            | OK
+                                                  |                                                 | org.apache.tomcat:tomcat-juli:9.0.78            | OK
+                                                  |                                                 | org.apache.tomcat:tomcat-api:9.0.78             | OK
+tomcat-api-9.0.78.jar                             | org.apache.tomcat:tomcat-api:9.0.78             | org.apache.tomcat:tomcat-servlet-api:9.0.78     | OK
+tomcat-coyote-9.0.78.jar                          | org.apache.tomcat:tomcat-coyote:9.0.78          | org.apache.tomcat:tomcat-servlet-api:9.0.78     | OK
+                                                  |                                                 | org.apache.tomcat:tomcat-jni:9.0.78             | OK
+                                                  |                                                 | org.apache.tomcat:tomcat-juli:9.0.78            | OK
+                                                  |                                                 | org.apache.tomcat:tomcat-util:9.0.78            | OK
+tomcat-servlet-api-9.0.78.jar                     | org.apache.tomcat:tomcat-servlet-api:9.0.78     | [none]                                          |
+tomcat-util-9.0.78.jar                            | org.apache.tomcat:tomcat-util:9.0.78            | org.apache.tomcat:tomcat-juli:9.0.78            | OK
+tomcat-juli-9.0.78.jar                            | org.apache.tomcat:tomcat-juli:9.0.78            | [none]                                          |
+tomcat-annotations-api-9.0.78.jar                 | org.apache.tomcat:tomcat-annotations-api:9.0.78 | [none]                                          |
+tomcat-jni-9.0.78.jar                             | org.apache.tomcat:tomcat-jni:9.0.78             | [none]                                          |
+tomcat-jaspic-api-9.0.78.jar                      | org.apache.tomcat:tomcat-jaspic-api:9.0.78      | [none]                                          |
+tomcat-el-api-9.0.78.jar                          | org.apache.tomcat:tomcat-el-api:9.0.78          | [none]                                          |
 
 Packages
 --------
@@ -236,27 +236,27 @@ List of packages per JAR file.
 
 JAR file                                          | Count | Packages                                           | Issues
 --------------------------------------------------+-------+----------------------------------------------------+-------
-tomcat-annotations-api-9.0.76.jar                 | 3     | javax.annotation (+2 subpackages)                  |
-tomcat-api-9.0.76.jar                             | 1     | org.apache.tomcat                                  |
-tomcat-catalina-9.0.76.jar                        | 28    | org.apache.catalina (+23 subpackages)              |
+tomcat-annotations-api-9.0.78.jar                 | 3     | javax.annotation (+2 subpackages)                  |
+tomcat-api-9.0.78.jar                             | 1     | org.apache.tomcat                                  |
+tomcat-catalina-9.0.78.jar                        | 28    | org.apache.catalina (+23 subpackages)              |
                                                   |       | org.apache.naming (+3 subpackages)                 |
-tomcat-coyote-9.0.76.jar                          | 23    | org.apache.coyote (+5 subpackages)                 |
+tomcat-coyote-9.0.78.jar                          | 23    | org.apache.coyote (+5 subpackages)                 |
                                                   |       | org.apache.tomcat.util.bcel (+1 subpackage)        |
                                                   |       | org.apache.tomcat.util.http (+7 subpackages)       |
                                                   |       | org.apache.tomcat.util.log                         |
                                                   |       | org.apache.tomcat.util.modeler (+1 subpackage)     |
                                                   |       | org.apache.tomcat.util.net (+3 subpackages)        |
-tomcat-el-api-9.0.76.jar                          | 1     | javax.el                                           |
-tomcat-jaspic-api-9.0.76.jar                      | 4     | javax.security.auth.message (+3 subpackages)       |
-tomcat-jni-9.0.76.jar                             | 1     | org.apache.tomcat.jni                              |
-tomcat-jsp-api-9.0.76.jar                         | 3     | javax.servlet.jsp (+2 subpackages)                 |
-tomcat-juli-9.0.76.jar                            | 2     | org.apache.juli (+1 subpackage)                    |
-tomcat-servlet-api-9.0.76.jar                     | 4     | javax.servlet                                      |
+tomcat-el-api-9.0.78.jar                          | 1     | javax.el                                           |
+tomcat-jaspic-api-9.0.78.jar                      | 4     | javax.security.auth.message (+3 subpackages)       |
+tomcat-jni-9.0.78.jar                             | 1     | org.apache.tomcat.jni                              |
+tomcat-jsp-api-9.0.78.jar                         | 3     | javax.servlet.jsp (+2 subpackages)                 |
+tomcat-juli-9.0.78.jar                            | 2     | org.apache.juli (+1 subpackage)                    |
+tomcat-servlet-api-9.0.78.jar                     | 4     | javax.servlet                                      |
                                                   |       | javax.servlet.annotation                           |
                                                   |       | javax.servlet.descriptor                           |
                                                   |       | javax.servlet.http                                 |
 tomcat-session-logout-listener-1.2.1-SNAPSHOT.jar | 1     | net.markwalder.tomcat                              |
-tomcat-util-9.0.76.jar                            | 10    | org.apache.tomcat.util                             |
+tomcat-util-9.0.78.jar                            | 10    | org.apache.tomcat.util                             |
                                                   |       | org.apache.tomcat.util.buf                         |
                                                   |       | org.apache.tomcat.util.codec.binary                |
                                                   |       | org.apache.tomcat.util.collections                 |
@@ -266,7 +266,7 @@ tomcat-util-9.0.76.jar                            | 10    | org.apache.tomcat.ut
                                                   |       | org.apache.tomcat.util.res                         |
                                                   |       | org.apache.tomcat.util.security                    |
                                                   |       | org.apache.tomcat.util.threads                     |
-tomcat-util-scan-9.0.76.jar                       | 6     | org.apache.tomcat.util.descriptor (+3 subpackages) |
+tomcat-util-scan-9.0.78.jar                       | 6     | org.apache.tomcat.util.descriptor (+3 subpackages) |
                                                   |       | org.apache.tomcat.util.digester                    |
                                                   |       | org.apache.tomcat.util.scan                        |
 
@@ -283,7 +283,7 @@ Compatibility issues between JAR files.
 
 JAR file                   | Issues
 ---------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------
-tomcat-catalina-9.0.76.jar | org.apache.catalina.connector.Request
+tomcat-catalina-9.0.78.jar | org.apache.catalina.connector.Request
                            | • Class is not exported by module org.apache.tomcat.coyote: public class org.apache.tomcat.util.http.fileupload.impl.InvalidContentTypeException
                            | • Class is not exported by module org.apache.tomcat.coyote: public abstract class org.apache.tomcat.util.http.fileupload.impl.SizeException
                            |
@@ -334,7 +334,7 @@ tomcat-catalina-9.0.76.jar | org.apache.catalina.connector.Request
                            | • Class not found: javax.xml.rpc.handler.HandlerChain (package not found)
                            | • Class not found: javax.xml.rpc.handler.HandlerInfo (package not found)
                            | • Class not found: javax.xml.rpc.handler.HandlerRegistry (package not found)
-tomcat-juli-9.0.76.jar     | org.apache.juli.logging.LogFactory
+tomcat-juli-9.0.78.jar     | org.apache.juli.logging.LogFactory
                            | • Annotation not found: aQute.bnd.annotation.spi.ServiceConsumer (package not found)
 
 Blacklist
@@ -342,8 +342,8 @@ Blacklist
 Use of dangerous, unsafe, unstable, or deprecated classes and methods.
 
 JAR file                   | Issues
----------------------------+------------------------------------------------------------------------------------------------------------------------------------------------
-tomcat-catalina-9.0.76.jar | org.apache.catalina.connector.Connector
+---------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+tomcat-catalina-9.0.78.jar | org.apache.catalina.connector.Connector
                            | • @Deprecated: public abstract boolean org.apache.coyote.ProtocolHandler.isAprRequired()
                            | • @Deprecated: public class org.apache.coyote.ajp.AjpAprProtocol
                            | • @Deprecated: public class org.apache.coyote.http11.Http11AprProtocol
@@ -375,6 +375,9 @@ tomcat-catalina-9.0.76.jar | org.apache.catalina.connector.Connector
                            | org.apache.catalina.core.StandardWrapper
                            | • @Deprecated: public interface javax.servlet.SingleThreadModel
                            |
+                           | org.apache.catalina.filters.FailedRequestFilter$1
+                           | • @Deprecated: public static final org.apache.tomcat.util.http.Parameters$FailReason org.apache.tomcat.util.http.Parameters$FailReason.REQUEST_BODY_INCOMPLETE
+                           |
                            | org.apache.catalina.servlets.CGIServlet$CGIRunner
                            | • java.lang.Process java.lang.Runtime.exec(java.lang.String[],java.lang.String[],java.io.File)
                            |
@@ -400,7 +403,7 @@ tomcat-catalina-9.0.76.jar | org.apache.catalina.connector.Connector
                            |
                            | org.apache.catalina.startup.Tool
                            | • static void java.lang.System.exit(int)
-tomcat-coyote-9.0.76.jar   | org.apache.tomcat.util.net.Acceptor
+tomcat-coyote-9.0.78.jar   | org.apache.tomcat.util.net.Acceptor
                            | • @Deprecated: public class org.apache.tomcat.jni.Error
                            |
                            | org.apache.tomcat.util.net.AprEndpoint
@@ -445,7 +448,7 @@ tomcat-coyote-9.0.76.jar   | org.apache.tomcat.util.net.Acceptor
                            |
                            | org.apache.tomcat.util.net.openssl.ciphers.OpenSSLCipherConfigurationParser
                            | • static void java.lang.System.exit(int)
-tomcat-jni-9.0.76.jar      | org.apache.tomcat.jni.Library
+tomcat-jni-9.0.78.jar      | org.apache.tomcat.jni.Library
                            | • static void java.lang.System.load(java.lang.String)
                            | • static void java.lang.System.loadLibrary(java.lang.String)
 
