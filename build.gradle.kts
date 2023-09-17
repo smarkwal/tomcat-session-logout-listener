@@ -82,8 +82,8 @@ dependencies {
     // test dependencies -------------------------------------------------------
 
     // JUnit 5
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.0")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.0")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.10.0")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
     // Mockito
     // Note: Mockito 5 is not compatible with Java 8.
