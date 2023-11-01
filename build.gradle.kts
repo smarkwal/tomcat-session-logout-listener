@@ -19,7 +19,7 @@ plugins {
 
     // Gradle Versions Plugin
     // https://github.com/ben-manes/gradle-versions-plugin
-    id("com.github.ben-manes.versions") version "0.48.0"
+    id("com.github.ben-manes.versions") version "0.49.0"
 
     // JarHC Gradle plugin
     id("org.jarhc") version "1.0.1"
