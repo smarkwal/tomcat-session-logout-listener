@@ -64,7 +64,7 @@ or maybe you have to write a custom component that periodically polls the user m
 
 This valve has been tested with the following software components:
 
-* Tomcat 7.0.109, Tomcat 8.5.93, and Tomcat 9.0.80.
+* Tomcat 7.0.109, Tomcat 8.5.95, and Tomcat 9.0.82.
 * Java 8, Java 11, and Java 17.
 
 Note: The valve is not compatible with Tomcat 10.0.0 or newer.
