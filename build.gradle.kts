@@ -104,7 +104,7 @@ dependencies {
     testImplementation("commons-codec:commons-codec:1.16.0")
 
     // Apache Commons IO
-    testImplementation("commons-io:commons-io:2.14.0")
+    testImplementation("commons-io:commons-io:2.15.1")
 
     // SLF4J
     testImplementation("org.slf4j:slf4j-api:2.0.9")
