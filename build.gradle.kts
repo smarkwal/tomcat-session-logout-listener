@@ -19,7 +19,7 @@ plugins {
 
     // Gradle Versions Plugin
     // https://github.com/ben-manes/gradle-versions-plugin
-    id("com.github.ben-manes.versions") version "0.49.0"
+    id("com.github.ben-manes.versions") version "0.50.0"
 
     // JarHC Gradle plugin
     id("org.jarhc") version "1.0.1"
@@ -77,7 +77,7 @@ dependencies {
 
     // main dependencies -------------------------------------------------------
 
-    api("org.apache.tomcat:tomcat-catalina:9.0.82")
+    api("org.apache.tomcat:tomcat-catalina:9.0.84")
 
     // test dependencies -------------------------------------------------------
 
@@ -94,8 +94,8 @@ dependencies {
     testImplementation("org.assertj:assertj-core:3.24.2")
 
     // Testcontainers
-    testImplementation("org.testcontainers:testcontainers:1.19.1")
-    testImplementation("org.testcontainers:junit-jupiter:1.19.1")
+    testImplementation("org.testcontainers:testcontainers:1.19.3")
+    testImplementation("org.testcontainers:junit-jupiter:1.19.3")
 
     // Apache HttpClient
     testImplementation("org.apache.httpcomponents:httpclient:4.5.14")
@@ -104,7 +104,7 @@ dependencies {
     testImplementation("commons-codec:commons-codec:1.16.0")
 
     // Apache Commons IO
-    testImplementation("commons-io:commons-io:2.14.0")
+    testImplementation("commons-io:commons-io:2.15.1")
 
     // SLF4J
     testImplementation("org.slf4j:slf4j-api:2.0.9")
