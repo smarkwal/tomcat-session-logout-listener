@@ -107,8 +107,8 @@ dependencies {
     testImplementation("commons-io:commons-io:2.15.1")
 
     // SLF4J
-    testImplementation("org.slf4j:slf4j-api:2.0.11")
-    testRuntimeOnly("org.slf4j:slf4j-simple:2.0.11")
+    testImplementation("org.slf4j:slf4j-api:2.0.12")
+    testRuntimeOnly("org.slf4j:slf4j-simple:2.0.12")
 }
 
 java {
@@ -217,6 +217,7 @@ tasks {
         rejectVersionIf {
             candidate.version.contains("-M") // ignore milestone version
                     || candidate.version.contains("-rc") // ignore release candidate versions
+                    || candidate.version.contains("-alpha") // ignore alpha versions
                     || candidate.group == "org.apache.tomcat" && candidate.module == "tomcat-catalina" && candidate.version < "9" // ignore Tomcat 10.0 and greater
                     || candidate.group == "org.mockito" && candidate.version >= "5" // ignore Mockito 5 and greater
         }
