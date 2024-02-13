@@ -7,7 +7,7 @@ List of JAR files found in classpath.
 
 JAR file                                          | Size    | Classes | Resources | Checksum (SHA-1)                         | Artifact coordinates
 --------------------------------------------------+---------+---------+-----------+------------------------------------------+------------------------------------------------
-tomcat-session-logout-listener-1.2.1-SNAPSHOT.jar | 9.57 KB | 6       | 0         | 7029d11fac4254d57499138e3ae810c11824e38c | [unknown]
+tomcat-session-logout-listener-1.2.1-SNAPSHOT.jar | 9.57 KB | 6       | 0         | 30d9124f0d2d25180b6d5ab67b365f8f3ad3ac4e | [unknown]
 tomcat-catalina-9.0.85.jar                        | 1.70 MB | 706     | 47        | 629375aad4a15202608a644baf50f7036d3d226d | org.apache.tomcat:tomcat-catalina:9.0.85
 tomcat-jsp-api-9.0.85.jar                         | 72.2 KB | 72      | 2         | 2da040408836c42122600a6b568c6ec42b7945a0 | org.apache.tomcat:tomcat-jsp-api:9.0.85
 tomcat-util-scan-9.0.85.jar                       | 222 KB  | 118     | 6         | 0e50b6dea16399e1d3351601de5e876649b7b3b6 | org.apache.tomcat:tomcat-util-scan:9.0.85
@@ -344,129 +344,253 @@ Blacklist
 ---------
 Use of dangerous, unsafe, unstable, or deprecated classes and methods.
 
-JAR file                   | Issues
----------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------
-tomcat-catalina-9.0.85.jar | org.apache.catalina.connector.Connector
-                           | • @Deprecated: public abstract boolean org.apache.coyote.ProtocolHandler.isAprRequired()
-                           | • @Deprecated: public class org.apache.coyote.ajp.AjpAprProtocol
-                           | • @Deprecated: public class org.apache.coyote.http11.Http11AprProtocol
-                           | • @Deprecated: public static final boolean org.apache.tomcat.util.buf.UDecoder.ALLOW_ENCODED_SLASH
-                           |
-                           | org.apache.catalina.connector.Response
-                           | • @Deprecated: public boolean org.apache.coyote.Response.setError()
-                           |
-                           | org.apache.catalina.core.ApplicationHttpResponse
-                           | • @Deprecated: public abstract void javax.servlet.http.HttpServletResponse.setStatus(int,java.lang.String)
-                           |
-                           | org.apache.catalina.core.AprLifecycleListener
-                           | • @Deprecated: public static boolean org.apache.tomcat.jni.Library.APR_HAS_RANDOM
-                           | • @Deprecated: public static boolean org.apache.tomcat.jni.Library.APR_HAS_SENDFILE
-                           | • @Deprecated: public static boolean org.apache.tomcat.jni.Library.APR_HAS_SO_ACCEPTFILTER
-                           | • @Deprecated: public static boolean org.apache.tomcat.jni.Library.APR_HAVE_IPV6
-                           | • @Deprecated: public static boolean org.apache.tomcat.jni.Library.APR_HAVE_UNIX
-                           |
-                           | org.apache.catalina.core.AsyncContextImpl$RunnableWrapper
-                           | • @Deprecated: public boolean org.apache.coyote.Response.setError()
-                           |
-                           | org.apache.catalina.core.JniLifecycleListener
-                           | • static void java.lang.System.load(java.lang.String)
-                           | • static void java.lang.System.loadLibrary(java.lang.String)
-                           |
-                           | org.apache.catalina.core.StandardContext$NoPluggabilityServletContext
-                           | • @Deprecated: public abstract java.util.Enumeration javax.servlet.ServletContext.getServletNames()
-                           | • @Deprecated: public abstract java.util.Enumeration javax.servlet.ServletContext.getServlets()
-                           | • @Deprecated: public abstract javax.servlet.Servlet javax.servlet.ServletContext.getServlet(java.lang.String)
-                           | • @Deprecated: public abstract void javax.servlet.ServletContext.log(java.lang.Exception,java.lang.String)
-                           |
-                           | org.apache.catalina.core.StandardThreadExecutor
-                           | • @Deprecated: public void org.apache.tomcat.util.threads.ThreadPoolExecutor.execute(java.lang.Runnable,long,java.util.concurrent.TimeUnit)
-                           |
-                           | org.apache.catalina.core.StandardWrapper
-                           | • @Deprecated: public interface javax.servlet.SingleThreadModel
-                           |
-                           | org.apache.catalina.filters.FailedRequestFilter$1
-                           | • @Deprecated: public static final org.apache.tomcat.util.http.Parameters$FailReason org.apache.tomcat.util.http.Parameters$FailReason.REQUEST_BODY_INCOMPLETE
-                           |
-                           | org.apache.catalina.servlets.CGIServlet$CGIRunner
-                           | • java.lang.Process java.lang.Runtime.exec(java.lang.String[],java.lang.String[],java.io.File)
-                           |
-                           | org.apache.catalina.session.StandardSession
-                           | • @Deprecated: public interface javax.servlet.http.HttpSessionContext
-                           |
-                           | org.apache.catalina.session.StandardSessionContext
-                           | • @Deprecated: public interface javax.servlet.http.HttpSessionContext
-                           |
-                           | org.apache.catalina.session.StandardSessionFacade
-                           | • @Deprecated: public abstract java.lang.String[] javax.servlet.http.HttpSession.getValueNames()
-                           | • @Deprecated: public abstract javax.servlet.http.HttpSessionContext javax.servlet.http.HttpSession.getSessionContext()
-                           | • @Deprecated: public interface javax.servlet.http.HttpSessionContext
-                           |
-                           | org.apache.catalina.startup.Bootstrap
-                           | • static void java.lang.System.exit(int)
-                           |
-                           | org.apache.catalina.startup.Catalina
-                           | • static void java.lang.System.exit(int)
-                           |
-                           | org.apache.catalina.startup.Tomcat$ExistingStandardWrapper
-                           | • @Deprecated: public interface javax.servlet.SingleThreadModel
-                           |
-                           | org.apache.catalina.startup.Tool
-                           | • static void java.lang.System.exit(int)
-tomcat-coyote-9.0.85.jar   | org.apache.tomcat.util.net.Acceptor
-                           | • @Deprecated: public class org.apache.tomcat.jni.Error
-                           |
-                           | org.apache.tomcat.util.net.AprEndpoint
-                           | • @Deprecated: public class org.apache.tomcat.jni.Address
-                           | • @Deprecated: public class org.apache.tomcat.jni.Error
-                           | • @Deprecated: public class org.apache.tomcat.jni.OS
-                           | • @Deprecated: public class org.apache.tomcat.jni.Poll
-                           | • @Deprecated: public class org.apache.tomcat.jni.SSLSocket
-                           | • @Deprecated: public class org.apache.tomcat.jni.Sockaddr
-                           | • @Deprecated: public class org.apache.tomcat.jni.Socket
-                           | • @Deprecated: public class org.apache.tomcat.jni.Status
-                           | • @Deprecated: public static boolean org.apache.tomcat.jni.Library.APR_HAS_SENDFILE
-                           | • @Deprecated: public static boolean org.apache.tomcat.jni.Library.APR_HAVE_IPV6
-                           | • @Deprecated: public static boolean org.apache.tomcat.jni.Library.APR_HAVE_UNIX
-                           | • @Deprecated: public static native java.lang.String org.apache.tomcat.jni.SSL.getLastError()
-                           | • @Deprecated: public static void org.apache.tomcat.jni.SSLContext.registerDefault(java.lang.Long,org.apache.tomcat.jni.SSLContext$SNICallBack)
-                           |
-                           | org.apache.tomcat.util.net.AprEndpoint$AprSocketWrapper
-                           | • @Deprecated: public class org.apache.tomcat.jni.Address
-                           | • @Deprecated: public class org.apache.tomcat.jni.OS
-                           | • @Deprecated: public class org.apache.tomcat.jni.SSLSocket
-                           | • @Deprecated: public class org.apache.tomcat.jni.Sockaddr
-                           | • @Deprecated: public class org.apache.tomcat.jni.Socket
-                           | • @Deprecated: public class org.apache.tomcat.jni.Status
-                           |
-                           | org.apache.tomcat.util.net.AprEndpoint$Poller
-                           | • @Deprecated: public class org.apache.tomcat.jni.Error
-                           | • @Deprecated: public class org.apache.tomcat.jni.Poll
-                           |
-                           | org.apache.tomcat.util.net.AprEndpoint$Sendfile
-                           | • @Deprecated: public class org.apache.tomcat.jni.Error
-                           | • @Deprecated: public class org.apache.tomcat.jni.File
-                           | • @Deprecated: public class org.apache.tomcat.jni.Poll
-                           | • @Deprecated: public class org.apache.tomcat.jni.Socket
-                           |
-                           | org.apache.tomcat.util.net.openssl.OpenSSLEngine
-                           | • @Deprecated: public abstract class javax.security.cert.X509Certificate
-                           |
-                           | org.apache.tomcat.util.net.openssl.OpenSSLEngine$OpenSSLSession
-                           | • @Deprecated: public abstract class javax.security.cert.X509Certificate
-                           | • @Deprecated: public class javax.security.cert.CertificateException
-                           |
-                           | org.apache.tomcat.util.net.openssl.ciphers.OpenSSLCipherConfigurationParser
-                           | • static void java.lang.System.exit(int)
-tomcat-jni-9.0.85.jar      | org.apache.tomcat.jni.Library
-                           | • static void java.lang.System.load(java.lang.String)
-                           | • static void java.lang.System.loadLibrary(java.lang.String)
+JAR file                      | Issues
+------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+tomcat-catalina-9.0.85.jar    | org.apache.catalina.connector.Connector
+                              | • @Deprecated: public abstract boolean org.apache.coyote.ProtocolHandler.isAprRequired()
+                              | • @Deprecated: public class org.apache.coyote.ajp.AjpAprProtocol
+                              | • @Deprecated: public class org.apache.coyote.http11.Http11AprProtocol
+                              | • @Deprecated: public static final boolean org.apache.tomcat.util.buf.UDecoder.ALLOW_ENCODED_SLASH
+                              |
+                              | org.apache.catalina.connector.CoyoteInputStream
+                              | • @Deprecated: public final class java.security.AccessController
+                              |
+                              | org.apache.catalina.connector.InputBuffer
+                              | • @Deprecated: public final class java.security.AccessController
+                              |
+                              | org.apache.catalina.connector.OutputBuffer
+                              | • @Deprecated: public final class java.security.AccessController
+                              |
+                              | org.apache.catalina.connector.Request
+                              | • @Deprecated: public class java.lang.SecurityManager
+                              |
+                              | org.apache.catalina.connector.RequestFacade
+                              | • @Deprecated: public final class java.security.AccessController
+                              |
+                              | org.apache.catalina.connector.Response
+                              | • @Deprecated: public boolean org.apache.coyote.Response.setError()
+                              | • @Deprecated: public final class java.security.AccessController
+                              |
+                              | org.apache.catalina.connector.ResponseFacade
+                              | • @Deprecated: public final class java.security.AccessController
+                              |
+                              | org.apache.catalina.core.ApplicationContext
+                              | • @Deprecated: public class java.lang.SecurityManager
+                              |
+                              | org.apache.catalina.core.ApplicationContextFacade
+                              | • @Deprecated: public final class java.security.AccessController
+                              |
+                              | org.apache.catalina.core.ApplicationDispatcher
+                              | • @Deprecated: public final class java.security.AccessController
+                              |
+                              | org.apache.catalina.core.ApplicationFilterChain
+                              | • @Deprecated: public final class java.security.AccessController
+                              |
+                              | org.apache.catalina.core.ApplicationHttpResponse
+                              | • @Deprecated: public abstract void javax.servlet.http.HttpServletResponse.setStatus(int,java.lang.String)
+                              |
+                              | org.apache.catalina.core.AprLifecycleListener
+                              | • @Deprecated: public static boolean org.apache.tomcat.jni.Library.APR_HAS_RANDOM
+                              | • @Deprecated: public static boolean org.apache.tomcat.jni.Library.APR_HAS_SENDFILE
+                              | • @Deprecated: public static boolean org.apache.tomcat.jni.Library.APR_HAS_SO_ACCEPTFILTER
+                              | • @Deprecated: public static boolean org.apache.tomcat.jni.Library.APR_HAVE_IPV6
+                              | • @Deprecated: public static boolean org.apache.tomcat.jni.Library.APR_HAVE_UNIX
+                              |
+                              | org.apache.catalina.core.AsyncContextImpl$RunnableWrapper
+                              | • @Deprecated: public boolean org.apache.coyote.Response.setError()
+                              |
+                              | org.apache.catalina.core.ContainerBase
+                              | • @Deprecated: public final class java.security.AccessController
+                              |
+                              | org.apache.catalina.core.DefaultInstanceManager
+                              | • @Deprecated: public final class java.security.AccessController
+                              |
+                              | org.apache.catalina.core.JniLifecycleListener
+                              | • static void java.lang.System.load(java.lang.String)
+                              | • static void java.lang.System.loadLibrary(java.lang.String)
+                              |
+                              | org.apache.catalina.core.StandardContext
+                              | • @Deprecated: public final class java.security.AccessController
+                              |
+                              | org.apache.catalina.core.StandardContext$NoPluggabilityServletContext
+                              | • @Deprecated: public abstract java.util.Enumeration javax.servlet.ServletContext.getServletNames()
+                              | • @Deprecated: public abstract java.util.Enumeration javax.servlet.ServletContext.getServlets()
+                              | • @Deprecated: public abstract javax.servlet.Servlet javax.servlet.ServletContext.getServlet(java.lang.String)
+                              | • @Deprecated: public abstract void javax.servlet.ServletContext.log(java.lang.Exception,java.lang.String)
+                              |
+                              | org.apache.catalina.core.StandardServer
+                              | • @Deprecated: public class java.security.AccessControlException
+                              |
+                              | org.apache.catalina.core.StandardThreadExecutor
+                              | • @Deprecated: public void org.apache.tomcat.util.threads.ThreadPoolExecutor.execute(java.lang.Runnable,long,java.util.concurrent.TimeUnit)
+                              |
+                              | org.apache.catalina.core.StandardWrapper
+                              | • @Deprecated: public interface javax.servlet.SingleThreadModel
+                              |
+                              | org.apache.catalina.filters.FailedRequestFilter$1
+                              | • @Deprecated: public static final org.apache.tomcat.util.http.Parameters$FailReason org.apache.tomcat.util.http.Parameters$FailReason.REQUEST_BODY_INCOMPLETE
+                              |
+                              | org.apache.catalina.loader.WebappClassLoaderBase
+                              | • @Deprecated: public abstract class java.security.Policy
+                              | • @Deprecated: public class java.lang.SecurityManager
+                              | • @Deprecated: public class java.security.AccessControlException
+                              | • @Deprecated: public final class java.security.AccessController
+                              |
+                              | org.apache.catalina.security.SecurityUtil
+                              | • @Deprecated: public final class java.security.AccessControlContext
+                              |
+                              | org.apache.catalina.servlets.CGIServlet$CGIRunner
+                              | • java.lang.Process java.lang.Runtime.exec(java.lang.String[],java.lang.String[],java.io.File)
+                              |
+                              | org.apache.catalina.servlets.DefaultServlet
+                              | • @Deprecated: public final class java.security.AccessController
+                              |
+                              | org.apache.catalina.session.PersistentManagerBase
+                              | • @Deprecated: public final class java.security.AccessController
+                              |
+                              | org.apache.catalina.session.StandardManager
+                              | • @Deprecated: public final class java.security.AccessController
+                              |
+                              | org.apache.catalina.session.StandardSession
+                              | • @Deprecated: public final class java.security.AccessController
+                              | • @Deprecated: public interface javax.servlet.http.HttpSessionContext
+                              |
+                              | org.apache.catalina.session.StandardSessionContext
+                              | • @Deprecated: public interface javax.servlet.http.HttpSessionContext
+                              |
+                              | org.apache.catalina.session.StandardSessionFacade
+                              | • @Deprecated: public abstract java.lang.String[] javax.servlet.http.HttpSession.getValueNames()
+                              | • @Deprecated: public abstract javax.servlet.http.HttpSessionContext javax.servlet.http.HttpSession.getSessionContext()
+                              | • @Deprecated: public interface javax.servlet.http.HttpSessionContext
+                              |
+                              | org.apache.catalina.startup.Bootstrap
+                              | • static void java.lang.System.exit(int)
+                              |
+                              | org.apache.catalina.startup.Catalina
+                              | • static void java.lang.System.exit(int)
+                              |
+                              | org.apache.catalina.startup.ClassLoaderFactory
+                              | • @Deprecated: public final class java.security.AccessController
+                              |
+                              | org.apache.catalina.startup.HostConfig
+                              | • @Deprecated: public abstract class java.security.Policy
+                              |
+                              | org.apache.catalina.startup.Tomcat$ExistingStandardWrapper
+                              | • @Deprecated: public interface javax.servlet.SingleThreadModel
+                              |
+                              | org.apache.catalina.startup.Tool
+                              | • static void java.lang.System.exit(int)
+                              |
+                              | org.apache.catalina.util.Introspection
+                              | • @Deprecated: public final class java.security.AccessController
+                              |
+                              | org.apache.naming.ContextAccessController
+                              | • @Deprecated: public class java.lang.SecurityManager
+                              |
+                              | org.apache.naming.factory.MailSessionFactory
+                              | • @Deprecated: public final class java.security.AccessController
+                              |
+                              | org.apache.naming.factory.ResourceLinkFactory
+                              | • @Deprecated: public class java.lang.SecurityManager
+                              |
+                              | org.apache.naming.factory.SendMailFactory
+                              | • @Deprecated: public final class java.security.AccessController
+tomcat-util-scan-9.0.85.jar   | org.apache.tomcat.util.descriptor.tld.TldParser
+                              | • @Deprecated: public final class java.security.AccessController
+tomcat-coyote-9.0.85.jar      | org.apache.coyote.AsyncStateMachine
+                              | • @Deprecated: public final class java.security.AccessController
+                              |
+                              | org.apache.coyote.http2.Stream
+                              | • @Deprecated: public final class java.security.AccessController
+                              |
+                              | org.apache.tomcat.util.net.Acceptor
+                              | • @Deprecated: public class org.apache.tomcat.jni.Error
+                              |
+                              | org.apache.tomcat.util.net.AprEndpoint
+                              | • @Deprecated: public class org.apache.tomcat.jni.Address
+                              | • @Deprecated: public class org.apache.tomcat.jni.Error
+                              | • @Deprecated: public class org.apache.tomcat.jni.OS
+                              | • @Deprecated: public class org.apache.tomcat.jni.Poll
+                              | • @Deprecated: public class org.apache.tomcat.jni.SSLSocket
+                              | • @Deprecated: public class org.apache.tomcat.jni.Sockaddr
+                              | • @Deprecated: public class org.apache.tomcat.jni.Socket
+                              | • @Deprecated: public class org.apache.tomcat.jni.Status
+                              | • @Deprecated: public static boolean org.apache.tomcat.jni.Library.APR_HAS_SENDFILE
+                              | • @Deprecated: public static boolean org.apache.tomcat.jni.Library.APR_HAVE_IPV6
+                              | • @Deprecated: public static boolean org.apache.tomcat.jni.Library.APR_HAVE_UNIX
+                              | • @Deprecated: public static native java.lang.String org.apache.tomcat.jni.SSL.getLastError()
+                              | • @Deprecated: public static void org.apache.tomcat.jni.SSLContext.registerDefault(java.lang.Long,org.apache.tomcat.jni.SSLContext$SNICallBack)
+                              |
+                              | org.apache.tomcat.util.net.AprEndpoint$AprSocketWrapper
+                              | • @Deprecated: public class org.apache.tomcat.jni.Address
+                              | • @Deprecated: public class org.apache.tomcat.jni.OS
+                              | • @Deprecated: public class org.apache.tomcat.jni.SSLSocket
+                              | • @Deprecated: public class org.apache.tomcat.jni.Sockaddr
+                              | • @Deprecated: public class org.apache.tomcat.jni.Socket
+                              | • @Deprecated: public class org.apache.tomcat.jni.Status
+                              |
+                              | org.apache.tomcat.util.net.AprEndpoint$Poller
+                              | • @Deprecated: public class org.apache.tomcat.jni.Error
+                              | • @Deprecated: public class org.apache.tomcat.jni.Poll
+                              |
+                              | org.apache.tomcat.util.net.AprEndpoint$Sendfile
+                              | • @Deprecated: public class org.apache.tomcat.jni.Error
+                              | • @Deprecated: public class org.apache.tomcat.jni.File
+                              | • @Deprecated: public class org.apache.tomcat.jni.Poll
+                              | • @Deprecated: public class org.apache.tomcat.jni.Socket
+                              |
+                              | org.apache.tomcat.util.net.openssl.OpenSSLEngine
+                              | • @Deprecated: public abstract class javax.security.cert.X509Certificate
+                              |
+                              | org.apache.tomcat.util.net.openssl.OpenSSLEngine$OpenSSLSession
+                              | • @Deprecated: public abstract class javax.security.cert.X509Certificate
+                              | • @Deprecated: public class javax.security.cert.CertificateException
+                              |
+                              | org.apache.tomcat.util.net.openssl.ciphers.OpenSSLCipherConfigurationParser
+                              | • static void java.lang.System.exit(int)
+tomcat-servlet-api-9.0.85.jar | javax.servlet.http.Cookie
+                              | • @Deprecated: public final class java.security.AccessController
+tomcat-util-9.0.85.jar        | org.apache.tomcat.util.compat.JrePlatform
+                              | • @Deprecated: public final class java.security.AccessController
+                              |
+                              | org.apache.tomcat.util.security.PrivilegedSetAccessControlContext
+                              | • @Deprecated: public final class java.security.AccessControlContext
+                              | • @Deprecated: public final class java.security.AccessController
+                              |
+                              | org.apache.tomcat.util.threads.TaskThreadFactory
+                              | • @Deprecated: public class java.lang.SecurityManager
+                              | • @Deprecated: public final class java.security.AccessController
+                              |
+                              | org.apache.tomcat.util.threads.ThreadPoolExecutor
+                              | • @Deprecated: public class java.lang.SecurityManager
+tomcat-juli-9.0.85.jar        | org.apache.juli.ClassLoaderLogManager
+                              | • @Deprecated: public class java.security.AccessControlException
+                              | • @Deprecated: public final class java.security.AccessController
+                              |
+                              | org.apache.juli.FileHandler$ThreadFactory
+                              | • @Deprecated: public class java.lang.SecurityManager
+                              | • @Deprecated: public final class java.security.AccessController
+tomcat-jni-9.0.85.jar         | org.apache.tomcat.jni.Library
+                              | • static void java.lang.System.load(java.lang.String)
+                              | • static void java.lang.System.loadLibrary(java.lang.String)
+tomcat-jaspic-api-9.0.85.jar  | javax.security.auth.message.config.AuthConfigFactory
+                              | • @Deprecated: public class java.lang.SecurityManager
+                              | • @Deprecated: public final class java.security.AccessController
+tomcat-el-api-9.0.85.jar      | javax.el.BeanELResolver
+                              | • @Deprecated: public final class java.security.AccessController
+                              |
+                              | javax.el.ExpressionFactory
+                              | • @Deprecated: public final class java.security.AccessController
+                              |
+                              | javax.el.Util
+                              | • @Deprecated: public final class java.security.AccessController
 
 Java Runtime
 ------------
 Information about JRE/JDK runtime.
 
-Java home    : /Users/markwalder/Library/Java/JavaVirtualMachines/temurin-11.0.19/Contents/Home
+Java home    : /Users/markwalder/Library/Java/JavaVirtualMachines/temurin-17.0.1/Contents/Home
 Java runtime : OpenJDK Runtime Environment
-Java version : 11.0.19
+Java version : 17.0.1
 Java vendor  : Eclipse Adoptium
 

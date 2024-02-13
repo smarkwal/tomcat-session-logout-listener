@@ -228,8 +228,8 @@ This project is licensed under the [MIT license](https://github.com/smarkwal/tom
 To build this project from source code, execute the following command:
 
 ```shell
-# set JAVA_HOME to a JDK 11
-export JAVA_HOME=/path/to/java-11
+# set JAVA_HOME to a JDK 17
+export JAVA_HOME=/path/to/java-17
 
 # build JAR file
 ./gradlew clean jar
