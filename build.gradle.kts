@@ -15,7 +15,7 @@ plugins {
     id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
 
     // get current Git branch name
-    id("org.ajoberstar.grgit") version "5.2.1"
+    id("org.ajoberstar.grgit") version "5.2.2"
 
     // Gradle Versions Plugin
     // https://github.com/ben-manes/gradle-versions-plugin
