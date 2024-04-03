@@ -1,3 +1,6 @@
+> [!NOTE]
+> This project has been archived in April 2024 and is no longer maintained.
+
 # Tomcat Session Logout Listener
 
 [![Release](https://img.shields.io/github/v/release/smarkwal/tomcat-session-logout-listener?label=Latest)](https://github.com/smarkwal/tomcat-session-logout-listener/releases/latest)
