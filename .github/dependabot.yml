@@ -10,9 +10,6 @@ updates:
     directory: "/"
     schedule:
       interval: "monthly"
-      day: "friday"
-      time: "17:00"
-      timezone: "Europe/Zurich"
     open-pull-requests-limit: 100
     ignore:
       - dependency-name: "org.apache.tomcat:tomcat-catalina"
@@ -26,7 +23,4 @@ updates:
     directory: "/"
     schedule:
       interval: "monthly"
-      day: "friday"
-      time: "17:00"
-      timezone: "Europe/Zurich"
     open-pull-requests-limit: 100
