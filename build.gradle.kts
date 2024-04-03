@@ -9,13 +9,13 @@ plugins {
     `maven-publish`
 
     // run Sonar analysis
-    id("org.sonarqube") version "4.4.1.3373"
+    id("org.sonarqube") version "5.0.0.4638"
 
     // publish to Sonatype OSSRH and release to Maven Central
     id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
 
     // get current Git branch name
-    id("org.ajoberstar.grgit") version "5.2.1"
+    id("org.ajoberstar.grgit") version "5.2.2"
 
     // Gradle Versions Plugin
     // https://github.com/ben-manes/gradle-versions-plugin
@@ -77,7 +77,7 @@ dependencies {
 
     // main dependencies -------------------------------------------------------
 
-    api("org.apache.tomcat:tomcat-catalina:9.0.85")
+    api("org.apache.tomcat:tomcat-catalina:9.0.87")
 
     // test dependencies -------------------------------------------------------
 
@@ -94,8 +94,8 @@ dependencies {
     testImplementation("org.assertj:assertj-core:3.25.3")
 
     // Testcontainers
-    testImplementation("org.testcontainers:testcontainers:1.19.5")
-    testImplementation("org.testcontainers:junit-jupiter:1.19.5")
+    testImplementation("org.testcontainers:testcontainers:1.19.7")
+    testImplementation("org.testcontainers:junit-jupiter:1.19.7")
 
     // Apache HttpClient
     testImplementation("org.apache.httpcomponents:httpclient:4.5.14")
@@ -104,7 +104,7 @@ dependencies {
     testImplementation("commons-codec:commons-codec:1.16.1")
 
     // Apache Commons IO
-    testImplementation("commons-io:commons-io:2.15.1")
+    testImplementation("commons-io:commons-io:2.16.0")
 
     // SLF4J
     testImplementation("org.slf4j:slf4j-api:2.0.12")
